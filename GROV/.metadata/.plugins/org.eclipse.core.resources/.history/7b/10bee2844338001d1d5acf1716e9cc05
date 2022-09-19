@@ -1,0 +1,9 @@
+package com.grovs.model;
+
+public class Review {
+	private long id;
+	private long userId;
+	private long productId;
+	private String userName;
+	
+}

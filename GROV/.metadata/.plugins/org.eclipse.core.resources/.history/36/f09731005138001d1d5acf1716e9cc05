@@ -1,0 +1,144 @@
+package com.example.criteria;
+
+import java.util.List;
+import java.util.Scanner;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+
+
+
+public class EmployeeMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		EmployeeMain obj=new EmployeeMain();
+		do {
+			System.out.println("1.insert");
+			System.out.println("2.listData");
+			System.out.println("3.List Data count");
+			System.out.println("4.list Data Sum");
+			System.out.println("5.listDataFilteredSalary");
+			System.out.println("6.Exit");
+			Scanner sc=new Scanner(System.in);
+			int opt=sc.nextInt();
+			switch(opt) {
+			case 1:obj.insertData(sc);
+					break;
+			case 2: 
+					obj.listData();
+					break;
+			case 3:
+				obj.listDataCount();
+			break;
+			case 4: 
+				obj.listDataSum();
+			break;
+			case 5:
+				 obj.listDataFilteredSalary();
+				 break;
+			
+			case 6: System.exit(0);
+			default:
+					System.out.println("Invalid Option");
+			}
+		}while(true);
+	
+	}
+	public void insertData(Scanner sc) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction=null;
+		try {
+			transaction=session.beginTransaction();
+			Employee e1=new Employee();
+			System.out.println("Enter id");
+			e1.setId(sc.nextInt());
+			System.out.println("Enter name");
+			e1.setName(sc.next());
+			System.out.println("Enter salary");
+			e1.setSalary(sc.nextInt());
+			session.save(e1);
+			transaction.commit();
+		}catch(HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	public void listData() {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction=null;
+		try {
+			transaction=session.beginTransaction();
+			Query<Employee> employee=session.createQuery("from Employee");
+			List<Employee> list=employee.list();
+			list.forEach(e->System.out.println(e.getId()+" "+e.getName()+" "+e.getSalary()));
+			transaction.commit();
+		}catch(HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	public void listDataCount() {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction=null;
+		try {
+			transaction=session.beginTransaction();
+			Query employee=session.createQuery("select count(*) from Employee");
+			int count=employee.executeUpdate();
+			System.out.println(count);
+			transaction.commit();
+		}catch(HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	public void listDataSum() {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction=null;
+		try {
+			transaction=session.beginTransaction();
+			Query employee=session.createQuery("select sum(salary) from Employee");
+			int sum=employee.getFirstResult();
+			System.out.println(sum);
+			transaction.commit();
+		}catch(HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	public void listDataFilteredSalary() {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction=null;
+		try {
+			transaction=session.beginTransaction();
+			Criteria c=  session.createCriteria();
+			c.add(Restrictions.gt("sal",5000));
+			List<Employee> list=c.list();
+			list.forEach(e->System.out.println(e.getId()+" "+e.getName()+" "+e.getSalary()));
+			transaction.commit();
+		}catch(HibernateException e) {
+			transaction.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+}

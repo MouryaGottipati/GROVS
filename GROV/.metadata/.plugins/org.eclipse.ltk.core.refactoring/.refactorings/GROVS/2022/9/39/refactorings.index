@@ -1,0 +1,16 @@
+1663599360870	Rename resource 'temp.jsp'
+1663600173605	Move file
+1663600551298	Rename package 'com.example.controller'
+1663600586414	Rename package 'com.example.service'
+1663600598976	Rename package 'com.example.model'
+1663600661104	Rename package 'com.example.dao'
+1663601655433	Copy package
+1663601673632	Rename type 'CartService'
+1663601684607	Rename type 'ICartService'
+1663601693809	Rename type 'IOrderService'
+1663601704616	Rename type 'IProductService'
+1663601712959	Rename type 'IUserService'
+1663601720946	Rename type 'OrderService'
+1663601732212	Rename type 'ProductService'
+1663601748740	Rename type 'UserService'
+1663605531090	Rename type 'Rating'

@@ -1,0 +1,731 @@
+Microsoft Windows [Version 10.0.19044.2006]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\gotti>mysql -u root -p;
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+
+C:\Users\gotti>mysql -u root -p
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 127
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database temp;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> use temp;
+Database changed
+mysql> select curttime();
+ERROR 1305 (42000): FUNCTION temp.curttime does not exist
+mysql> create table current_time(time datetime default current_timestamp,modify datetime default now(),update_time datetime dafault current_timesamp on update current_timestamp);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_time(time datetime default current_timestamp,modify datetime default now' at line 1
+mysql> create table current_time(time1 datetime default current_timestamp,modify datetime default now(),update_time datetime dafault current_timesamp on update current_timestamp);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'current_time(time1 datetime default current_timestamp,modify datetime default no' at line 1
+mysql> create table current(time1 datetime default current_timestamp,modify datetime default now(),update_time datetime dafault current_timesamp on update current_timestamp);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dafault current_timesamp on update current_timestamp)' at line 1
+mysql> create table current(time1 datetime default current_timestamp,modify datetime default now(),update_time datetime on update current_timestamp);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> alter table current add column id int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc current;
++-------------+----------+------+-----+-------------------+-----------------------------+
+| Field       | Type     | Null | Key | Default           | Extra                       |
++-------------+----------+------+-----+-------------------+-----------------------------+
+| time1       | datetime | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED           |
+| modify      | datetime | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED           |
+| update_time | datetime | YES  |     | NULL              | on update CURRENT_TIMESTAMP |
+| id          | int      | YES  |     | NULL              |                             |
++-------------+----------+------+-----+-------------------+-----------------------------+
+4 rows in set (0.04 sec)
+
+mysql> insert into current values(1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into current(id) values(1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into current(id) values(2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from current;
++---------------------+---------------------+-------------+------+
+| time1               | modify              | update_time | id   |
++---------------------+---------------------+-------------+------+
+| 2022-09-18 17:40:30 | 2022-09-18 17:40:30 | NULL        |    1 |
+| 2022-09-18 17:40:36 | 2022-09-18 17:40:36 | NULL        |    2 |
++---------------------+---------------------+-------------+------+
+2 rows in set (0.00 sec)
+
+mysql> update current set id=3 where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from current;
++---------------------+---------------------+---------------------+------+
+| time1               | modify              | update_time         | id   |
++---------------------+---------------------+---------------------+------+
+| 2022-09-18 17:40:30 | 2022-09-18 17:40:30 | NULL                |    1 |
+| 2022-09-18 17:40:36 | 2022-09-18 17:40:36 | 2022-09-18 17:41:28 |    3 |
++---------------------+---------------------+---------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> alter table current modify update_time datetime default current_timestamp on update current_timestamp;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into current(id) values(2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from current;
++---------------------+---------------------+---------------------+------+
+| time1               | modify              | update_time         | id   |
++---------------------+---------------------+---------------------+------+
+| 2022-09-18 17:40:30 | 2022-09-18 17:40:30 | NULL                |    1 |
+| 2022-09-18 17:40:36 | 2022-09-18 17:40:36 | 2022-09-18 17:41:28 |    3 |
+| 2022-09-18 17:43:46 | 2022-09-18 17:43:46 | 2022-09-18 17:43:46 |    2 |
++---------------------+---------------------+---------------------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table current add column text Text,blob blob;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'blob blob' at line 1
+mysql> alter table current add column text Text;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table current add column blob blob;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'blob blob' at line 1
+mysql> alter table current add column blobtext blob;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into current(text,blobext) values("hi this is mourya","hi this mou"),
+    -> ("hi this is mou","hi this mourya");
+ERROR 1054 (42S22): Unknown column 'blobext' in 'field list'
+mysql> insert into current(text,blobtext) values("hi this is mourya","hi this mou"),
+    -> ("hi this is mou","hi this mourya");
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from current;
++---------------------+---------------------+---------------------+------+-------------------+--------------------------------+
+| time1               | modify              | update_time         | id   | text              | blobtext                       |
++---------------------+---------------------+---------------------+------+-------------------+--------------------------------+
+| 2022-09-18 17:40:30 | 2022-09-18 17:40:30 | NULL                |    1 | NULL              | NULL                           |
+| 2022-09-18 17:40:36 | 2022-09-18 17:40:36 | 2022-09-18 17:41:28 |    3 | NULL              | NULL                           |
+| 2022-09-18 17:43:46 | 2022-09-18 17:43:46 | 2022-09-18 17:43:46 |    2 | NULL              | NULL                           |
+| 2022-09-18 18:22:51 | 2022-09-18 18:22:51 | 2022-09-18 18:22:51 | NULL | hi this is mourya | 0x68692074686973206D6F75       |
+| 2022-09-18 18:22:51 | 2022-09-18 18:22:51 | 2022-09-18 18:22:51 | NULL | hi this is mou    | 0x68692074686973206D6F75727961 |
++---------------------+---------------------+---------------------+------+-------------------+--------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select blobtext from current where id=null;
+Empty set (0.00 sec)
+
+mysql> select blobtext from current where id=NULL;
+Empty set (0.00 sec)
+
+mysql> select utl_raw.cast_to_varchar2(dbms_lob.substr(blobtext)) from current;
+ERROR 1305 (42000): FUNCTION utl_raw.cast_to_varchar2 does not exist
+mysql> utl_compress.lz_uncompress((blobtext)) from current;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'utl_compress.lz_uncompress((blobtext)) from current' at line 1
+mysql> select utl_compress.lz_uncompress((blobtext)) from current;
+ERROR 1305 (42000): FUNCTION utl_compress.lz_uncompress does not exist
+mysql> select to_clob(blobtext) from current;
+ERROR 1305 (42000): FUNCTION temp.to_clob does not exist
+mysql> select to_char(blobtext) from current;
+ERROR 1305 (42000): FUNCTION temp.to_char does not exist
+mysql> select to_char(current.blobtext) from current;
+ERROR 1305 (42000): FUNCTION temp.to_char does not exist
+mysql> show functions;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'functions' at line 1
+mysql> show functions
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'functions' at line 1
+mysql>
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255,8) not null,date-of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',8) not null,date-of_birth Date not null,age int not null,first_name vachar(50) ' at line 1
+mysql>
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date-of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_na' at line 1
+mysql>
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date-of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_na' at line 1
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date_of_birth Date not null,age int not null,first_name vachar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vachar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creati' at line 1
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date_of_birth Date not null,age int not null,first_name varchar2(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2(50) not null,mddle_name varchar(50),last_name varchar(50) not null,crea' at line 1
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date_of_birth Date not null,age int not null,first_name varchar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc users;
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |
++---------------+--------------+------+-----+-------------------+-------------------+
+| id            | bigint       | NO   | PRI | NULL              |                   |
+| mail          | varchar(255) | NO   | UNI | NULL              |                   |
+| phone         | varchar(15)  | NO   | UNI | NULL              |                   |
+| password      | varchar(255) | NO   |     | NULL              |                   |
+| date_of_birth | date         | NO   |     | NULL              |                   |
+| age           | int          | NO   |     | NULL              |                   |
+| first_name    | varchar(50)  | NO   |     | NULL              |                   |
+| mddle_name    | varchar(50)  | YES  |     | NULL              |                   |
+| last_name     | varchar(50)  | NO   |     | NULL              |                   |
+| creation_time | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++---------------+--------------+------+-----+-------------------+-------------------+
+10 rows in set (0.03 sec)
+
+mysql> drop users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'users' at line 1
+mysql> drop table users;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table users(id BIGINT,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date_of_birth Date not null,age int not null,first_name varchar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime not null default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc users;
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |
++---------------+--------------+------+-----+-------------------+-------------------+
+| id            | bigint       | NO   | PRI | NULL              |                   |
+| mail          | varchar(255) | NO   | UNI | NULL              |                   |
+| phone         | varchar(15)  | NO   | UNI | NULL              |                   |
+| password      | varchar(255) | NO   |     | NULL              |                   |
+| date_of_birth | date         | NO   |     | NULL              |                   |
+| age           | int          | NO   |     | NULL              |                   |
+| first_name    | varchar(50)  | NO   |     | NULL              |                   |
+| mddle_name    | varchar(50)  | YES  |     | NULL              |                   |
+| last_name     | varchar(50)  | NO   |     | NULL              |                   |
+| creation_time | datetime     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++---------------+--------------+------+-----+-------------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> create table products(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,category_id int not null,constraint products_category_id_foreignkey foreign key category_id references category(category.id),constraint products_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references category(category.id),constraint products_id_primarykey primary key(i' at line 1
+mysql> create table products(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,category_id int not null,constraint products_category_id_foreignkey foreign key category_id references category(category.id),constraint products_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references category(category.id),constraint products_id_primarykey primary key(i' at line 1
+mysql> create table root_category(id int,name varchar(50) not null,constraint root_category_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc root_category;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(50) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table category(id int,name varchar(50) not null,root_category_id int not null,constraint category_root_category_id_foreignkey root_category_id references root_category(root_category.id),constraint category_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'root_category_id references root_category(root_category.id),constraint category_' at line 1
+mysql> create table category(id int,name varchar(50) not null,root_category_id  int not null,constraint category_root_category_id_foreignkey foreign key root_category_id references root_category(root_category.id),constraint category_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references root_category(root_category.id),constraint category_id_primarykey pri' at line 1
+mysql> create table category(id int,name varchar(50) not null,root_category_id  int not null,constraint category_root_category_id_foreignkey foreign key root_category_id references root_category(root_category.id),constraint category_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references root_category(root_category.id),constraint category_id_primarykey pri' at line 1
+mysql> create table category(id int,name varchar(50) not null,root_category_id  int not null,constraint category_root_category_id_foreignkey foreign key(root_category_id) references root_category(root_category.id),constraint category_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.id),constraint category_id_primarykey primary key(id))' at line 1
+mysql> create table category(id int,name varchar(50) not null,root_category_id  int not null,constraint category_root_category_id_foreignkey foreign key(root_category_id) references root_category(id),constraint category_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc category;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| id               | int         | NO   | PRI | NULL    |       |
+| name             | varchar(50) | NO   |     | NULL    |       |
+| root_category_id | int         | NO   | MUL | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table products(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,category_id int not null,constraint products_category_id_foreignkey foreign key category_id refrences category(id),constraint products_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences category(id),constraint products_id_primarykey primary key(id))' at line 1
+mysql> create table products(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,category_id int not null,constraint products_category_id_foreignkey foreign key category_id references category(id),constraint products_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references category(id),constraint products_id_primarykey primary key(id))' at line 1
+mysql> create table products(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,category_id int not null,constraint products_category_id_foreignkey foreign key(category_id) references category(id),constraint products_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc products;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| id          | bigint        | NO   | PRI | NULL    |       |
+| name        | varchar(50)   | NO   |     | NULL    |       |
+| description | longtext      | NO   |     | NULL    |       |
+| image       | varchar(64)   | YES  |     | NULL    |       |
+| base_price  | decimal(10,3) | NO   |     | NULL    |       |
+| discount    | int           | YES  |     | NULL    |       |
+| gst         | int           | YES  |     | NULL    |       |
+| valid_time  | date          | NO   |     | NULL    |       |
+| return_time | int           | NO   |     | NULL    |       |
+| category_id | int           | NO   | MUL | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> create table reviews(users_id int not null,products_id int not null,review varchar(255),rating decimal(2,1) not null,constraint reviews_users_id_foreignkey foreign key(users_id) references users(id),constraint reviews_products_id_foreignkey foreign key(products_id) references products(id),constraint reviews_users_id_products_id_primarykey primary key(users_id,products_id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'reviews_users_id_foreignkey' are incompatible.
+mysql> create table reviews(users_id BIGINT not null,products_id BIGINT not null,review varchar(255),rating decimal(2,1) not null,constraint reviews_users_id_foreignkey foreign key(users_id) references users(id),constraint reviews_products_id_foreignkey foreign key(products_id) references products(id),constraint reviews_users_id_products_id_primarykey primary key(users_id,products_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> desc reviews;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| users_id    | bigint       | NO   | PRI | NULL    |       |
+| products_id | bigint       | NO   | PRI | NULL    |       |
+| review      | varchar(255) | YES  |     | NULL    |       |
+| rating      | decimal(2,1) | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> drop table reviews;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table reviews(users_id BIGINT not null,products_id BIGINT not null,review varchar(255) default "",rating decimal(2,1) not null,constraint reviews_users_id_foreignkey foreign key(users_id) references users(id),constraint reviews_products_id_foreignkey foreign key(products_id) references products(id),constraint reviews_users_id_products_id_primarykey primary key(users_id,products_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc reviews;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| users_id    | bigint       | NO   | PRI | NULL    |       |
+| products_id | bigint       | NO   | PRI | NULL    |       |
+| review      | varchar(255) | YES  |     |         |       |
+| rating      | decimal(2,1) | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> drop table products;
+ERROR 3730 (HY000): Cannot drop table 'products' referenced by a foreign key constraint 'reviews_products_id_foreignkey' on table 'reviews'.
+mysql> create table product(id BIGINT,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int,gst int,valid_time DATE not null,return_time int not null,stock BIGINT not null default 0,category_id int not null,constraint products_category_id_foreignkey foreign key(category_id) references category(id),constraint products_id_primarykey primary key(id));
+ERROR 1826 (HY000): Duplicate foreign key constraint name 'products_category_id_foreignkey'
+mysql> create table cart(users_id BIGINT not null,products_id BIGINT not null,count int  ,constraint cart_users_id_foreignkey foreign key(users_id) references users(id),constraint cart_products_id_foreignkey foreign key(products_id) references products(id),constraint cart_users_id_products_id_primarykey primary key(users_id,products_id));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc cart;
++-------------+--------+------+-----+---------+-------+
+| Field       | Type   | Null | Key | Default | Extra |
++-------------+--------+------+-----+---------+-------+
+| users_id    | bigint | NO   | PRI | NULL    |       |
+| products_id | bigint | NO   | PRI | NULL    |       |
+| count       | int    | YES  |     | NULL    |       |
++-------------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> drop table cart;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table cart(users_id BIGINT not null,products_id BIGINT not null,count int  not null,constraint cart_users_id_foreignkey foreign key(users_id) references users(id),constraint cart_products_id_foreignkey foreign key(products_id) references products(id),constraint cart_users_id_products_id_primarykey primary key(users_id,products_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc cart;
++-------------+--------+------+-----+---------+-------+
+| Field       | Type   | Null | Key | Default | Extra |
++-------------+--------+------+-----+---------+-------+
+| users_id    | bigint | NO   | PRI | NULL    |       |
+| products_id | bigint | NO   | PRI | NULL    |       |
+| count       | int    | NO   |     | NULL    |       |
++-------------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table cart(users_id BIGINT not null,products_id BIGINT not null,count int  not null,constraint cart_users_id_foreignkey foreign key(users_id) references users(id) on delete cascade,constraint cart_products_id_foreignkey foreign key(products_id) references products(id) on delete cascade,constraint cart_users_id_products_id_primarykey primary key(users_id,products_id));
+ERROR 1050 (42S01): Table 'cart' already exists
+mysql> drop table cart;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table cart(users_id BIGINT not null,products_id BIGINT not null,count int  not null,constraint cart_users_id_foreignkey foreign key(users_id) references users(id),constraint cart_products_id_foreignkey foreign key(products_id) references products(id),constraint cart_users_id_products_id_primarykey primary key(users_id,products_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc cart;
++-------------+--------+------+-----+---------+-------+
+| Field       | Type   | Null | Key | Default | Extra |
++-------------+--------+------+-----+---------+-------+
+| users_id    | bigint | NO   | PRI | NULL    |       |
+| products_id | bigint | NO   | PRI | NULL    |       |
+| count       | int    | NO   |     | NULL    |       |
++-------------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE SEQUENCE seq_person
+    -> MINVALUE 1
+    -> START WITH 1
+    -> INCREMENT BY 1
+    -> CACHE 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEQUENCE seq_person
+MINVALUE 1
+START WITH 1
+INCREMENT BY 1
+CACHE 10' at line 1
+mysql> CREATE table seq_person(
+    -> MINVALUE 1
+    -> START WITH 1
+    -> INCREMENT BY 1
+    -> CACHE 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1
+START WITH 1
+INCREMENT BY 1
+CACHE 10' at line 2
+mysql> create table temp1(id int autoincrement primary key,id2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoincrement primary key,id2 int)' at line 1
+mysql> create table temp1(id int AUTOINCREMENT primary key,id2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTOINCREMENT primary key,id2 int)' at line 1
+mysql> create table temp1(id AUTOINCREMENT(1000) primary key,id2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTOINCREMENT(1000) primary key,id2 int)' at line 1
+mysql> create table temp1(id AUTOINCREMENT primary key,id2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTOINCREMENT primary key,id2 int)' at line 1
+mysql> create table temp1(id int AUTO_INCREMENT=1000 primary key,id2 int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=1000 primary key,id2 int)' at line 1
+mysql> create table temp1(id int AUTO_INCREMENT primary key,id2 int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc temp1;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| id    | int  | NO   | PRI | NULL    | auto_increment |
+| id2   | int  | YES  |     | NULL    |                |
++-------+------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> alter table temp1 auto_increment=1000;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc temp1;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| id    | int  | NO   | PRI | NULL    | auto_increment |
+| id2   | int  | YES  |     | NULL    |                |
++-------+------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into temp1(0,10),(10,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0,10),(10,10)' at line 1
+mysql> insert into temp1 values(0,10),(10,10);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into temp1 values(0,10),(10,10);
+ERROR 1062 (23000): Duplicate entry '10' for key 'temp1.PRIMARY'
+mysql> select * from temp1;
++------+------+
+| id   | id2  |
++------+------+
+|   10 |   10 |
+| 1000 |   10 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE table seq_person(create table users_address(id BIGINT not null auto_increment=1000,users_id BIGINT not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int not null,country varchar(50) not null,type varchar(50) not null,modified_time datetime not null default current_timestamp on update current_timestamp,constraint users_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table users_address(id BIGINT not null auto_increment=1000,users_id BIGIN' at line 1
+mysql> create table seq_person(create table users_address(id BIGINT not null auto_increment=1000,users_id BIGINT not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int not null,country varchar(50) not null,type varchar(50) not null,modified_time datetime not null default current_timestamp on update current_timestamp,constraint users_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table users_address(id BIGINT not null auto_increment=1000,users_id BIGIN' at line 1
+mysql> create table seq_person(create table users_address(id BIGINT not null auto_increment=1000,users_id BIGINT not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int not null,country varchar(50) not null,type varchar(50) not null,modified_time datetime not null default current_timestamp on update current_timestamp,constraint users_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table users_address(id BIGINT not null auto_increment=1000,users_id BIGIN' at line 1
+mysql> create table users_address(id BIGINT not null auto_increment,users_id BIGINT not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int not null,country varchar(50) not null,type varchar(50) not null,modified_time datetime not null default current_timestamp on update current_timestamp,constraint users_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc users_address;
++---------------+-------------+------+-----+-------------------+-----------------------------------------------+
+| Field         | Type        | Null | Key | Default           | Extra                                         |
++---------------+-------------+------+-----+-------------------+-----------------------------------------------+
+| id            | bigint      | NO   | PRI | NULL              | auto_increment                                |
+| users_id      | bigint      | NO   | MUL | NULL              |                                               |
+| street        | varchar(50) | NO   |     | NULL              |                                               |
+| city          | varchar(50) | NO   |     | NULL              |                                               |
+| state         | varchar(50) | NO   |     | NULL              |                                               |
+| zipcode       | int         | NO   |     | NULL              |                                               |
+| country       | varchar(50) | NO   |     | NULL              |                                               |
+| type          | varchar(50) | NO   |     | NULL              |                                               |
+| modified_time | datetime    | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++---------------+-------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.01 sec)
+
+mysql> alter table users_address auto_increment=1000;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table users_address auto_increment;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> drop users_address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'users_address' at line 1
+mysql> drop table users_address;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table temp2(id int,id2 int default id+1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id+1)' at line 1
+mysql> create table temp2(id int,id2 int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table payments(id BIGINT UNSIGNED not null,transaction_id BIGINT UNSIGNED not null,type varchar(20) not null,card_name varchar(20),card_holder_name varchar(20),card_no BIGINT UNSIGNED,expiry_date date,cvv int UNSIGNED,status varchar(20), total decimal(10,3) UNSIGNED not null,constraint payments_transaction_id_unique unique(transaction_id),constraint payments_id_primarykey primary key(id));
+Query OK, 0 rows affected, 1 warning (0.17 sec)
+
+mysql> show warnings;
++---------+------+--------------------------------------------------------------------------------------------------------------------------+
+| Level   | Code | Message                                                                                                                  |
++---------+------+--------------------------------------------------------------------------------------------------------------------------+
+| Warning | 1681 | UNSIGNED for decimal and floating point data types is deprecated and support for it will be removed in a future release. |
++---------+------+--------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc payments;
++------------------+------------------------+------+-----+---------+-------+
+| Field            | Type                   | Null | Key | Default | Extra |
++------------------+------------------------+------+-----+---------+-------+
+| id               | bigint unsigned        | NO   | PRI | NULL    |       |
+| transaction_id   | bigint unsigned        | NO   | UNI | NULL    |       |
+| type             | varchar(20)            | NO   |     | NULL    |       |
+| card_name        | varchar(20)            | YES  |     | NULL    |       |
+| card_holder_name | varchar(20)            | YES  |     | NULL    |       |
+| card_no          | bigint unsigned        | YES  |     | NULL    |       |
+| expiry_date      | date                   | YES  |     | NULL    |       |
+| cvv              | int unsigned           | YES  |     | NULL    |       |
+| status           | varchar(20)            | YES  |     | NULL    |       |
+| total            | decimal(10,3) unsigned | NO   |     | NULL    |       |
++------------------+------------------------+------+-----+---------+-------+
+10 rows in set (0.03 sec)
+
+mysql> drop table payments;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table payments(id BIGINT UNSIGNED not null,transaction_id BIGINT UNSIGNED not null,type varchar(20) not null,card_name varchar(20),card_holder_name varchar(20),card_no BIGINT UNSIGNED,expiry_date date,cvv int UNSIGNED,status varchar(20) not null, total decimal(10,3) not null,constraint payments_transaction_id_unique unique(transaction_id),constraint payments_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc payments;
++------------------+-----------------+------+-----+---------+-------+
+| Field            | Type            | Null | Key | Default | Extra |
++------------------+-----------------+------+-----+---------+-------+
+| id               | bigint unsigned | NO   | PRI | NULL    |       |
+| transaction_id   | bigint unsigned | NO   | UNI | NULL    |       |
+| type             | varchar(20)     | NO   |     | NULL    |       |
+| card_name        | varchar(20)     | YES  |     | NULL    |       |
+| card_holder_name | varchar(20)     | YES  |     | NULL    |       |
+| card_no          | bigint unsigned | YES  |     | NULL    |       |
+| expiry_date      | date            | YES  |     | NULL    |       |
+| cvv              | int unsigned    | YES  |     | NULL    |       |
+| status           | varchar(20)     | NO   |     | NULL    |       |
+| total            | decimal(10,3)   | NO   |     | NULL    |       |
++------------------+-----------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED not null,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_address_users_id_foreignkey' are incompatible.
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED not null,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED ,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_address_users_id_foreignkey' are incompatible.
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_address_users_id_foreignkey' are incompatible.
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED ,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_address_users_id_foreignkey' are incompatible.
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id int ,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_address_users_id_foreignkey' are incompatible.
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_id bigint ,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,constraint orders_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc orders_address;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_id    | bigint          | YES  | MUL | NULL    |                |
+| users_mail  | varchar(255)    | NO   |     | NULL    |                |
+| users_phone | varchar(15)     | NO   |     | NULL    |                |
+| street      | varchar(50)     | NO   |     | NULL    |                |
+| city        | varchar(50)     | NO   |     | NULL    |                |
+| state       | varchar(50)     | NO   |     | NULL    |                |
+| zipcode     | int unsigned    | NO   |     | NULL    |                |
+| country     | varchar(50)     | NO   |     | NULL    |                |
+| type        | varchar(50)     | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+10 rows in set (0.01 sec)
+
+mysql> create table order_items(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,base_price decimal(10,3) not null,discount int UNSIGNED,gst int UNSIGNED,quantity int UNSIGNED not null,category_id int UNSIGNED not null,constraint products_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc order_items;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_id    | bigint unsigned | NO   |     | NULL    |                |
+| products_id | bigint unsigned | NO   |     | NULL    |                |
+| name        | varchar(50)     | NO   |     | NULL    |                |
+| base_price  | decimal(10,3)   | NO   |     | NULL    |                |
+| discount    | int unsigned    | YES  |     | NULL    |                |
+| gst         | int unsigned    | YES  |     | NULL    |                |
+| quantity    | int unsigned    | NO   |     | NULL    |                |
+| category_id | int unsigned    | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> drop table order_items;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table order_items(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,base_price decimal(10,3) not null,discount int UNSIGNED default 0,gst int UNSIGNED default 0,quantity int UNSIGNED not null,category_id int UNSIGNED not null,constraint products_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc order_items;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_id    | bigint unsigned | NO   |     | NULL    |                |
+| products_id | bigint unsigned | NO   |     | NULL    |                |
+| name        | varchar(50)     | NO   |     | NULL    |                |
+| base_price  | decimal(10,3)   | NO   |     | NULL    |                |
+| discount    | int unsigned    | YES  |     | 0       |                |
+| gst         | int unsigned    | YES  |     | 0       |                |
+| quantity    | int unsigned    | NO   |     | NULL    |                |
+| category_id | int unsigned    | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> drop table orders_address;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,constraint users_address_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc orders_address;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_mail  | varchar(255)    | NO   |     | NULL    |                |
+| users_phone | varchar(15)     | NO   |     | NULL    |                |
+| street      | varchar(50)     | NO   |     | NULL    |                |
+| city        | varchar(50)     | NO   |     | NULL    |                |
+| state       | varchar(50)     | NO   |     | NULL    |                |
+| zipcode     | int unsigned    | NO   |     | NULL    |                |
+| country     | varchar(50)     | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> drop table orders_address;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_name varchar(255) not null,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,constraint users_address_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc orders_address;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_name  | varchar(255)    | NO   |     | NULL    |                |
+| users_mail  | varchar(255)    | NO   |     | NULL    |                |
+| users_phone | varchar(15)     | NO   |     | NULL    |                |
+| street      | varchar(50)     | NO   |     | NULL    |                |
+| city        | varchar(50)     | NO   |     | NULL    |                |
+| state       | varchar(50)     | NO   |     | NULL    |                |
+| zipcode     | int unsigned    | NO   |     | NULL    |                |
+| country     | varchar(50)     | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> desc order_items;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| users_id    | bigint unsigned | NO   |     | NULL    |                |
+| products_id | bigint unsigned | NO   |     | NULL    |                |
+| name        | varchar(50)     | NO   |     | NULL    |                |
+| base_price  | decimal(10,3)   | NO   |     | NULL    |                |
+| discount    | int unsigned    | YES  |     | 0       |                |
+| gst         | int unsigned    | YES  |     | 0       |                |
+| quantity    | int unsigned    | NO   |     | NULL    |                |
+| category_id | int unsigned    | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> drop table order_items;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table order_items(id BIGINT UNSIGNED not null auto_increment,orders_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,base_price decimal(10,3) not null,discount int UNSIGNED default 0,gst int UNSIGNED default 0,quantity int UNSIGNED not null,category_id int UNSIGNED not null,constraint products_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc order_items;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| orders_id   | bigint unsigned | NO   |     | NULL    |                |
+| products_id | bigint unsigned | NO   |     | NULL    |                |
+| name        | varchar(50)     | NO   |     | NULL    |                |
+| base_price  | decimal(10,3)   | NO   |     | NULL    |                |
+| discount    | int unsigned    | YES  |     | 0       |                |
+| gst         | int unsigned    | YES  |     | 0       |                |
+| quantity    | int unsigned    | NO   |     | NULL    |                |
+| category_id | int unsigned    | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED not null,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payment_id) references payment(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 1072 (42000): Key column 'payment_id' doesn't exist in table
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED not null,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payment(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 1824 (HY000): Failed to open the referenced table 'payment'
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED not null,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_users_id_foreignkey' are incompatible.
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED not null,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_users_id_foreignkey' are incompatible.
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED ,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_users_id_foreignkey' are incompatible.
+mysql> create table orders(id BIGINT ,users_id BIGINT UNSIGNED ,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+ERROR 3780 (HY000): Referencing column 'users_id' and referenced column 'id' in foreign key constraint 'orders_users_id_foreignkey' are incompatible.
+mysql> create table orders(id BIGINT UNSIGNED not null,users_id BIGINT ,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc orders;
++---------------------+-----------------+------+-----+-------------------+-------------------+
+| Field               | Type            | Null | Key | Default           | Extra             |
++---------------------+-----------------+------+-----+-------------------+-------------------+
+| id                  | bigint unsigned | NO   | PRI | NULL              |                   |
+| users_id            | bigint          | YES  | MUL | NULL              |                   |
+| payments_id         | bigint unsigned | NO   | MUL | NULL              |                   |
+| total               | decimal(10,3)   | NO   |     | NULL              |                   |
+| coupon_used         | varchar(50)     | YES  |     | NULL              |                   |
+| status              | varchar(20)     | NO   |     | NULL              |                   |
+| placed_time         | datetime        | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| shipment_time       | datetime        | NO   |     | NULL              |                   |
+| return_time         | datetime        | NO   |     | NULL              |                   |
+| billing_address_id  | bigint unsigned | NO   | MUL | NULL              |                   |
+| shipping_address_id | bigint unsigned | NO   | MUL | NULL              |                   |
++---------------------+-----------------+------+-----+-------------------+-------------------+
+11 rows in set (0.01 sec)
+
+mysql> create table order_items(id BIGINT UNSIGNED not null auto_increment,orders_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,base_price decimal(10,3) not null,discount int UNSIGNED default 0,gst int UNSIGNED default 0,quantity int UNSIGNED not null,category_id int UNSIGNED not null,constraint order_items_orders_id_foreignkey foreign key(orders_id) references orders(id),constraint products_id_primarykey primary key(id));
+ERROR 1050 (42S01): Table 'order_items' already exists
+mysql> drop table order_items;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table order_items(id BIGINT UNSIGNED not null auto_increment,orders_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,base_price decimal(10,3) not null,discount int UNSIGNED default 0,gst int UNSIGNED default 0,quantity int UNSIGNED not null,category_id int UNSIGNED not null,constraint order_items_orders_id_foreignkey foreign key(orders_id) references orders(id),constraint products_id_primarykey primary key(id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc order_items;
++-------------+-----------------+------+-----+---------+----------------+
+| Field       | Type            | Null | Key | Default | Extra          |
++-------------+-----------------+------+-----+---------+----------------+
+| id          | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| orders_id   | bigint unsigned | NO   | MUL | NULL    |                |
+| products_id | bigint unsigned | NO   |     | NULL    |                |
+| name        | varchar(50)     | NO   |     | NULL    |                |
+| base_price  | decimal(10,3)   | NO   |     | NULL    |                |
+| discount    | int unsigned    | YES  |     | 0       |                |
+| gst         | int unsigned    | YES  |     | 0       |                |
+| quantity    | int unsigned    | NO   |     | NULL    |                |
+| category_id | int unsigned    | NO   |     | NULL    |                |
++-------------+-----------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,19 @@
+package com.grovs.model;
+
+import java.util.Date;
+import java.util.Set;
+
+public class Product {
+	  private long id;
+	  private String name;
+	  private String img;
+	  private Date expiryDate;
+	  private int age;
+	  private double basePrice;
+	  private double gst;
+	  private double discount;
+	  private long stock;
+	  private int quantity;
+	  private Category categoryId;
+	  private Set<Rating> ratings;
+}

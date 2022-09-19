@@ -1,0 +1,76 @@
+-----UsersTable-------
+
+create table users(id BIGINT UNSIGNED not null,mail varchar(255) not null,phone varchar(15) not null,password varchar(255) not null,date_of_birth Date not null,age int not null,first_name varchar(50) not null,mddle_name varchar(50),last_name varchar(50) not null,creation_time datetime not null default current_timestamp,constraint users_mail_unique unique(mail),constraint users_phone_unique unique(phone),constraint users_id_primary primary key(id));
+
+-----ProductsTable------
+
+create table products(id BIGINT UNSIGNED not null,name varchar(50) not null,description LongText not null,image varchar(64),base_price decimal(10,3) not null,discount int UNSIGNED default 0,gst int UNSIGNED default 0,expiry_date DATE not null,return_period int not null,stock BIGINT UNSIGNED not null default 0,category_id int UNSIGNED not null, updated_time datetime not null default current_timestamp on update current_timestamp,constraint products_category_id_foreignkey foreign key(category_id) references category(id),constraint products_id_primarykey primary key(id));
+
+-----Category------
+
+create table category(id int UNSIGNED,name varchar(50) not null,root_category_id  int UNSIGNED not null,constraint category_root_category_id_foreignkey foreign key(root_category_id) references root_category(id),constraint category_id_primarykey primary key(id));
+
+---index---
+
+create index reviews_root_category_id_index on category(root_category_id);
+
+
+-----RootCategory------
+
+create table root_category(id int UNSIGNED,name varchar(50) not null,constraint root_category_id_primarykey primary key(id));
+
+
+-----reviews------
+
+create table reviews(id bigint unsigned not null auto_increment,users_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,users_name varchar(50) not null,review varchar(255) not null default "",rating decimal(2,1) not null,updated_time datetime not null default current_timestamp on update current_timestamp,constraint reviews_products_id_foreignkey foreign key(products_id) references products(id) on delete cascade,constraint reviews_users_id_products_id_primarykey primary key(id));
+
+--index--
+
+create index reviews_users_id_products_id_index on cart(users_id,products_id);
+
+create index reviews_products_id_index on cart(products_id);
+
+create index reviews_users_id_index on cart(users_id);
+
+-----cart-----
+
+create table cart(id bigint unsigned not null auto_increment,users_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,count int UNSIGNED not null,constraint cart_users_id_foreignkey foreign key(users_id) references users(id) on delete cascade,constraint cart_products_id_foreignkey foreign key(products_id) references products(id) on delete cascade,constraint cart_users_id_products_id_primarykey primary key(id));
+
+--index--
+
+create index cart_users_id_products_id_index on cart(users_id,products_id);
+
+-----UsersAddress-----
+
+create table users_address(id BIGINT UNSIGNED not null auto_increment,users_id BIGINT UNSIGNED not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,type varchar(50) not null,modified_time datetime not null default current_timestamp on update current_timestamp,constraint users_address_users_id_foreignkey foreign key(users_id) references users(id),constraint users_address_id_primarykey primary key(id));
+
+//alter table users_address auto_increment=1000;
+
+--index--
+
+create index users_address_users_id_index on cart(users_id);
+
+-----Orders------
+
+create table orders(id BIGINT UNSIGNED not null,users_id BIGINT UNSIGNED not null,payments_id BIGINT UNSIGNED not null, total decimal(10,3) not null,coupon_used varchar(50),status varchar(20) not null,placed_time datetime not null default current_timestamp,shipment_time datetime not null,return_time datetime not null,billing_address_id BIGINT UNSIGNED not null,shipping_address_id BIGINT UNSIGNED not null,constraint orders_billing_address_id_foreignkey foreign key(billing_address_id) references orders_address(id) ,constraint orders_shipping_address_id_foreignkey foreign key(shipping_address_id) references orders_address(id) ,constraint orders_payments_id_foreignkey foreign key(payments_id) references payments(id) ,constraint orders_users_id_foreignkey foreign key(users_id) references users(id),constraint orders_id_primarykey primary key(id)); 
+
+-----Payments-----
+
+create table payments(id BIGINT UNSIGNED not null,transaction_id BIGINT UNSIGNED not null,type varchar(20) not null,card_name varchar(20),card_holder_name varchar(20),card_no BIGINT UNSIGNED,expiry_date date,cvv int UNSIGNED,status varchar(20) not null, total decimal(10,3) not null,constraint payments_transaction_id_unique unique(transaction_id),constraint payments_id_primarykey primary key(id));
+
+
+-----OrdersAddress------
+
+
+create table orders_address(id BIGINT UNSIGNED not null auto_increment,users_name varchar(255) not null,users_mail varchar(255) not null,users_phone varchar(15) not null,street varchar(50) not null,city varchar(50) not null,state varchar(50) not null,zipcode int UNSIGNED not null,country varchar(50) not null,constraint users_address_id_primarykey primary key(id));
+
+
+-----OrderItems------
+
+create table order_items(id BIGINT UNSIGNED not null auto_increment,orders_id BIGINT UNSIGNED not null,products_id BIGINT UNSIGNED not null,name varchar(50) not null,products_base_price decimal(10,3) not null,products_discount int UNSIGNED default 0,products_gst int UNSIGNED default 0,quantity int UNSIGNED not null,products_category_id int UNSIGNED not null,constraint order_items_orders_id_foreignkey foreign key(orders_id) references orders(id),constraint products_id_primarykey primary key(id));
+
+--index--
+
+create index order_items_orders_id_index on cart(orders_id);
+
+create index order_items_orders_id_products_id_index on cart(orders_id,products_id);

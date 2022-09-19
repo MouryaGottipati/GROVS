@@ -1,0 +1,18 @@
+package com.grovs.model;
+
+import java.util.Date;
+
+public class Product {
+	  private long id;
+	  private String name;
+	  private String img;
+	  private Date expiryDate;
+	  private age: int
+	  private basePrice: double
+	  private gst: double
+	  private discount: double
+	  private stock: long
+	  private quantity: int
+	  private category: Category
+	  private ratings: TreeSet<Rating>
+}

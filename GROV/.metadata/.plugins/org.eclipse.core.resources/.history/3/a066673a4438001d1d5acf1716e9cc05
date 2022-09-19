@@ -1,0 +1,21 @@
+package com.grovs.model;
+
+import java.time.LocalDate;
+import java.util.Set;
+
+public class Product {
+	private long id;
+	private String name;
+	private String description;
+	private String img;
+	private double basePrice;
+	private double discount;
+	private double gst;
+	private LocalDate expiryDate;
+	private int returnPeriod;
+	private long stock;
+	private long categoryId;
+	private Set<Review> review;
+	
+	
+}
