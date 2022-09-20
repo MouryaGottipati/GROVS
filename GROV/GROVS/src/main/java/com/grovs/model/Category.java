@@ -3,6 +3,7 @@ package com.grovs.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,9 +12,9 @@ public class Category {
 	@Id
 	@Column(name="id")
 	private int id;
-	@Column(name="name")
+	@Column(name="name",length=50,nullable=false)
 	private String name;
-	@Column(name="root_category_id")
+	@Column(name="root_category_id",nullable=false)
 	private int rootCategoryId;
 	public int getId() {
 		return id;

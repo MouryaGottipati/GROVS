@@ -1,0 +1,5 @@
+package com.grovs.config;
+
+public class GrovsAppConfig {
+
+}

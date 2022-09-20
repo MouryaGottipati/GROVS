@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -13,17 +14,17 @@ public class Review {
 	@Id
 	@Column(name="id")
 	private long id;
-	@Column(name="users_id")
+	@Column(name="users_id",nullable=false)
 	private long userId;
-	@Column(name="products_id")
+	@Column(name="products_id",nullable=false)
 	private long productId;
-	@Column(name="users_name")
+	@Column(name="users_name",nullable=false,length=50)
 	private String userName;
 	@Column(name="review")
 	private String review;
-	@Column(name="rating")
+	@Column(name="rating",nullable=false,columnDefinition="decimal(2,1)")
 	private double rating;
-	@Column(name="updated_time")
+	@Column(name="updated_time",insertable=false,updatable=false,columnDefinition="datetime default current_timestamp on update current_timestamp")
 	private LocalDateTime updatedTime;
 	public LocalDateTime getUpdatedTime() {
 		return updatedTime;

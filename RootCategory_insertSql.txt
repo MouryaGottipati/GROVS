@@ -1,0 +1,5 @@
+----RootCategory-----
+insert into root_category values(1,"Fruits&Vegetables"),
+(2,"FoodGrains,Oil&Masala"),
+(3,"Eggs,Meat&Fish"),
+(4,"Cakes&Dairy");

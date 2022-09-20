@@ -14,3 +14,6 @@
 1663601732212	Rename type 'ProductService'
 1663601748740	Rename type 'UserService'
 1663605531090	Rename type 'Rating'
+1663653884535	Rename package 'com.example.demo'
+1663691279112	Rename resource 'Bakery,Cakes&Dairy'
+1663699082934	Move compilation unit
