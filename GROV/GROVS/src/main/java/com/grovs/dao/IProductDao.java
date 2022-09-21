@@ -1,5 +1,9 @@
 package com.grovs.dao;
 
-public interface IProductDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.grovs.model.Product;
+
+public interface IProductDao extends JpaRepository<Product,Integer>{
 
 }

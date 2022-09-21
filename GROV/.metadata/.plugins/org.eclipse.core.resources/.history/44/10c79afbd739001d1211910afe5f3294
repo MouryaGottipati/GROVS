@@ -1,0 +1,18 @@
+package com.grovs.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grovs.dao.IRootCategoryDao;
+import com.grovs.model.RootCategory;
+
+@Service
+public class CategoryService {
+	@Autowired
+	private IRootCategoryDao iRootCategoryDaoObject;
+	public List<RootCategory> getAllCategories(){
+		return iRootCategoryDaoObject.findAll();
+	}
+}

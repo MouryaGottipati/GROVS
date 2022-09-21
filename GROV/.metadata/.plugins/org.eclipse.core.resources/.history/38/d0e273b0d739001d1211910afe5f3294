@@ -1,0 +1,18 @@
+package com.grovs.service;
+
+import java.util.HashSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grovs.dao.ICategoryDao;
+import com.grovs.model.RootCategory;
+
+@Service
+public class CategoryService {
+	@Autowired
+	private ICategoryDao iCategoryDao
+	public HashSet<RootCategory> getCategories(){
+		return 
+	}
+}

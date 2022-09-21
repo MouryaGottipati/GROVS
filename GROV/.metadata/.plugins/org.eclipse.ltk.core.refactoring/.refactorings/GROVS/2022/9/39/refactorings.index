@@ -17,3 +17,5 @@
 1663653884535	Rename package 'com.example.demo'
 1663691279112	Rename resource 'Bakery,Cakes&Dairy'
 1663699082934	Move compilation unit
+1663783532040	Rename type 'CategoryService'
+1663799576388	Infer generic type arguments

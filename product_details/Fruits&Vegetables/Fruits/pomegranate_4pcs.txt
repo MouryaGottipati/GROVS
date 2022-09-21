@@ -2,7 +2,7 @@ id=11111111
 
 Fresho Pomegranate (Loose), 4 pcs (approx. 720 - 800 g)
 
-image_path="/static/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg"
+image_path="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg"
 price=192
 discount=26
 gst=0

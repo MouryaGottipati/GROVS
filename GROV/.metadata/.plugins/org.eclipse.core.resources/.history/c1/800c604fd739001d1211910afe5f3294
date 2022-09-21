@@ -1,0 +1,14 @@
+package com.grovs.service;
+
+import java.util.HashSet;
+
+import org.springframework.stereotype.Service;
+
+import com.grovs.model.RootCategory;
+
+@Service
+public class CategoryService {
+	public HashSet<RootCategory> getCategories(){
+		
+	}
+}

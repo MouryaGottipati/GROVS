@@ -1,0 +1,16 @@
+package com.grovs.service;
+
+import java.util.TreeSet;
+
+import org.springframework.stereotype.Service;
+
+import com.grovs.model.Product;
+
+@Service
+public class ProductService implements IProductService{
+	
+	public Set<Product> getAllProducts(){
+		
+	}
+	
+}

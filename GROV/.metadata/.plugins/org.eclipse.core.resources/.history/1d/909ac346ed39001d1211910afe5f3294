@@ -1,0 +1,28 @@
+package com.grovs.service;
+
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
+import com.grovs.model.Category;
+import com.grovs.model.Product;
+import com.grovs.model.RootCategory;
+
+@Service
+public class HomeService {
+	
+	public Map<Category,Set<Product>> mapCategoriesToProducts(Category categoryObject,Set<Product> productsSet){
+		
+		return null;
+	}
+	public Set<RootCategory> iterateRootCatogory(Set<RootCategory> rootCategoryList,Set<Product> productsSet){
+		rootCategoryList.stream().parallel()
+		.map(categorySet->categorySet.getCategories())
+		.collect()
+		return null;
+		
+	}
+}

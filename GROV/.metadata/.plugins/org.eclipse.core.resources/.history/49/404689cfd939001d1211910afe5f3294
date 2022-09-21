@@ -1,0 +1,20 @@
+package com.grovs.service;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grovs.dao.IProductDao;
+import com.grovs.model.Product;
+
+@Service
+public class ProductService implements IProductService{
+	@Autowired
+	private IProductDao iProductDaoObject;
+	public Set<Product> getAllProducts(){
+		return  iProductDaoObject.findAll();
+	}
+	
+}

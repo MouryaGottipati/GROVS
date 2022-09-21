@@ -1,0 +1,18 @@
+package com.grovs.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.grovs.service.ProductService;
+import com.grovs.service.RootCategoryService;
+
+@Controller
+public class HomeController {
+	
+	@Autowired
+	private ProductService productServiceObject;
+	@Autowired
+	private RootCategoryService rootCategoryServiceObject;
+	
+	@RequestMapping("home")
+}
