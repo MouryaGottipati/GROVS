@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<style type="text/css">
+#categoryBlock {
+	display: inline-block;
+}
+
+
+#choose_category {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width:150px;
+	border: 1px solid rgb(255, 0, 0);
+	background-color: rgb(0, 255, 128);
+	color: rgb(0, 0, 255);
+	font-size: 15px;
+	font-style:bold;
+	padding: 7px 10px 7px 10px;
+}
+
+#choose_category:hover {
+
+	border: 1px solid rgb(255, 0, 0);
+	background-color: rgb(128, 255, 0);
+	color: rgb(255, 0, 255);
+	font-size: 15px; 
+	text-align : center;
+	padding: 7px 10px 7px 10px;
+	text-align: center;
+	font-style:bold;
+}
+
+#root_categories {
+	
+	margin:0;
+	padding:0;
+	width:150px;
+	list-style-type: none;
+	font-size: 13px;
+	color: #717171;
+	position: absolute;
+	
+}
+
+#root_categories li {
+	background-color: #ffe6e6;
+	width:152px;
+	border-bottom: 1px solid #eeeeee;
+	padding: 7px 10px 7px 10px;
+}
+
+#root_categories li:hover {
+	color: White;
+	background-color: #ffcc00;
+}
+
+#root_categories a:link {
+	color: #717171;
+	text-decoration: none;
+}
+
+#root_categories a:hover {
+	color: White;
+}
+
+#sub_categories {
+	
+	margin:0;
+	padding:0;
+	width:150px;
+	list-style-type: none;
+	font-size: 13px;
+	color: #717171;
+	position: absolute;
+
+	
+}
+
+#sub_categories li {
+	background-color: #ffe6e6;
+	width:152px;
+	border-bottom: 1px solid #eeeeee;
+	padding: 7px 10px 7px 10px;
+}
+
+#sub_categories li:hover {
+	color: White;
+	background-color: #ffcc00;
+}
+
+#sub_categories a:link {
+	color: #717171;
+	text-decoration: none;
+}
+
+#sub_categories a:hover {
+	color: White;
+}
+#categories{
+	position:absolute;
+	display:flex;
+}
+</style>
+<script type="text/javascript">
+
+
+const userAction=async ()=>{
+	const response = await fetch('http://localhost:9090/categories');
+	const myJson = await response.json();
+	return myJson;
+}
+/* const userAction=async ()=>{
+	getCategories(data=>{
+		conole.log(data)
+	});
+	
+} */
+ 
+  
+  const getDropDown=async ()=>{
+	  let myJson=await userAction();
+	  let root_categories=document.getElementById('root_categories');
+	  let a;
+	  for(let i=0;i<myJson.length;i++){
+		  li = document.createElement('li');
+		  a=document.createElement('a');
+		  a.text=myJson[i]['name'];
+		  a.value=myJson[i]['id'];
+		  a.setAttribute("name",myJson[i]['name'])
+		  a.setAttribute("id",myJson[i]['name'])
+		  a.className="anchor"
+		  li.setAttribute("id","root_category")
+		  li.setAttribute("onmouseover","subCategories("+myJson[i]['id']+")")
+		  li.appendChild(a)
+		  root_categories.appendChild(li);
+	  } 
+  };
+  const subCategories=async (root_category_id)=>{
+	  let myJson=await userAction();
+	  let root_categories=document.getElementById('sub_categories');
+	  let a;
+	  for(let i=0;i<myJson.length;i++){
+		  for(let j=0;i<myJson[i]['categories'].length;j++){
+		  li = document.createElement('li');
+		  li.setAttribute("id","list")
+		  a=document.createElement('a');
+		  a.text=myJson[i]['categories'][j]['name'];
+		  a.value=myJson[i]['categories'][j]['id'];
+		  a.setAttribute("name",myJson[i]['categories'][j]['name'])
+		  a.setAttribute("id",myJson[i]['categories'][j]['name'])
+		  a.className="sub_category"
+		  li.setAttribute("id","sub_category")
+		  li.appendChild(a)
+		  root_categories.appendChild(li);
+		 }
+		  } 
+  };
+ 
+  const out=()=>{
+	  const root_categories=document.getElementById('root_categories');
+	  while(root_categories.hasChildNodes()){
+		  root_categories.removeChild(root_categories.firstChild);
+	  }
+  }
+  // do something with myJson
+  
+
+</script>
+</head>
+<body>
+	<div id="categoryBlock" onmouseleave="out()">
+		<a id="choose_category" class="anchor" onmouseover="getDropDown()">CHOOSE CATEGORY</a>
+	<div id="categories">
+		<ul id="root_categories"></ul>
+		<ul id="sub_categories"></ul>
+	</div>
+	</div>
+
+
+	<h1>Index Html page</h1>
+	<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg" />
+</body>
+</html>
