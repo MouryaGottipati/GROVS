@@ -2,53 +2,51 @@
 <html>
 <head>
 <title>Home</title>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 #categoryBlock {
 	display: inline-block;
 }
-
 
 #choose_category {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	width:150px;
+	width: 150px;
 	border: 1px solid rgb(255, 0, 0);
 	background-color: rgb(0, 255, 128);
 	color: rgb(0, 0, 255);
 	font-size: 15px;
-	font-style:bold;
+	font-style: bold;
 	padding: 7px 10px 7px 10px;
 }
 
 #choose_category:hover {
-
 	border: 1px solid rgb(255, 0, 0);
 	background-color: rgb(128, 255, 0);
 	color: rgb(255, 0, 255);
-	font-size: 15px; 
-	text-align : center;
+	font-size: 15px;
+	text-align: center;
 	padding: 7px 10px 7px 10px;
 	text-align: center;
-	font-style:bold;
+	font-style: bold;
 }
 
 #root_categories {
-	
-	margin:0;
-	padding:0;
-	width:150px;
+	margin: 0;
+	padding: 0;
+	width: 150px;
 	list-style-type: none;
 	font-size: 13px;
 	color: #717171;
 	position: absolute;
-	
 }
 
 #root_categories li {
 	background-color: #ffe6e6;
-	width:152px;
+	width: 152px;
 	border-bottom: 1px solid #eeeeee;
 	padding: 7px 10px 7px 10px;
 }
@@ -67,22 +65,30 @@
 	color: White;
 }
 
+#root_categories a:hover  #sub_categories {
+	background-color: grey;
+}
+
 #sub_categories {
-	
-	margin:0;
-	padding:0;
-	width:150px;
+	visibility: hiddden;
+	display:none; 
+	background-color : grey;
+	margin: 0;
+	padding: 0;
+	width: 170px;
+	height: 118px;
 	list-style-type: none;
 	font-size: 13px;
 	color: #717171;
 	position: absolute;
-
-	
+	left: 180px;
+	margin: 0;
+	background-color: grey;
 }
 
 #sub_categories li {
 	background-color: #ffe6e6;
-	width:152px;
+	width: 150px;
 	border-bottom: 1px solid #eeeeee;
 	padding: 7px 10px 7px 10px;
 }
@@ -100,9 +106,9 @@
 #sub_categories a:hover {
 	color: White;
 }
-#categories{
-	position:absolute;
-	display:flex;
+
+#categories {
+	display: flex;
 }
 </style>
 <script type="text/javascript">
@@ -122,11 +128,14 @@ const userAction=async ()=>{
  
   
   const getDropDown=async ()=>{
+	  const root_categories=document.getElementById('root_categories');
+	  out();
 	  let myJson=await userAction();
-	  let root_categories=document.getElementById('root_categories');
 	  let a;
+	  
 	  for(let i=0;i<myJson.length;i++){
 		  li = document.createElement('li');
+
 		  a=document.createElement('a');
 		  a.text=myJson[i]['name'];
 		  a.value=myJson[i]['id'];
@@ -139,28 +148,45 @@ const userAction=async ()=>{
 		  root_categories.appendChild(li);
 	  } 
   };
+  
   const subCategories=async (root_category_id)=>{
+	  document.getElementById("sub_categories").style.display="inline";
 	  let myJson=await userAction();
+	  const sub_categories=document.getElementById('sub_categories');
+	  while(sub_categories.hasChildNodes()){
+		  await sub_categories.removeChild(sub_categories.firstChild);
+	  }
+	  /* console.log(root_category_id);
+	  console.log(myJson); */
 	  let root_categories=document.getElementById('sub_categories');
 	  let a;
 	  for(let i=0;i<myJson.length;i++){
-		  for(let j=0;i<myJson[i]['categories'].length;j++){
-		  li = document.createElement('li');
-		  li.setAttribute("id","list")
-		  a=document.createElement('a');
-		  a.text=myJson[i]['categories'][j]['name'];
-		  a.value=myJson[i]['categories'][j]['id'];
-		  a.setAttribute("name",myJson[i]['categories'][j]['name'])
-		  a.setAttribute("id",myJson[i]['categories'][j]['name'])
-		  a.className="sub_category"
-		  li.setAttribute("id","sub_category")
-		  li.appendChild(a)
-		  root_categories.appendChild(li);
-		 }
-		  } 
+		  if(myJson[i]['id']==root_category_id){
+			  for(let j=0;j<myJson[i]['categories'].length;j++){
+				  console.log(myJson[i]['categories'].length)
+				  li = document.createElement('li');
+				  a=document.createElement('a');
+				  console.log(myJson[i]['categories'][j]['name']);
+				  a.text=myJson[i]['categories'][j]['name'];
+				  a.value=myJson[i]['categories'][j]['id'];
+				  a.setAttribute("name",myJson[i]['categories'][j]['name'])
+				  a.setAttribute("id",myJson[i]['categories'][j]['name'])
+				  a.className="sub_category"
+				  li.setAttribute("id","sub_category")
+				  li.appendChild(a)
+				  root_categories.appendChild(li);
+			  }
+		  break;
+	  }
+	} 
   };
  
   const out=()=>{
+	  document.getElementById("sub_categories").style.display="none";
+	  const sub_categories=document.getElementById('sub_categories');
+	  while(sub_categories.hasChildNodes()){
+		  sub_categories.removeChild(sub_categories.firstChild);
+	  }
 	  const root_categories=document.getElementById('root_categories');
 	  while(root_categories.hasChildNodes()){
 		  root_categories.removeChild(root_categories.firstChild);
@@ -172,16 +198,21 @@ const userAction=async ()=>{
 </script>
 </head>
 <body>
+<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg" /><br>
 	<div id="categoryBlock" onmouseleave="out()">
-		<a id="choose_category" class="anchor" onmouseover="getDropDown()">CHOOSE CATEGORY</a>
-	<div id="categories">
-		<ul id="root_categories"></ul>
-		<ul id="sub_categories"></ul>
-	</div>
+		<a id="choose_category" class="anchor" onmouseover="getDropDown()">CHOOSE
+			CATEGORY</a>
+		<div id="categories">
+			<ul id="root_categories"></ul>
+			<ul id="sub_categories"></ul>
+		</div>
 	</div>
 
 
 	<h1>Index Html page</h1>
-	<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg" />
+	<div class="list_products">
+	
+	</div>
+	
 </body>
 </html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+.product-list {
+	padding-bottom: 8px;
+	list-style-type: none;
+	border: 1px solid grey;
+	margin: 3px;
+	width: 200px;
+}
+
+.product-discount-div {
+	display: flex;
+	justify-content: center;
+}
+
+.discount {
+	margin: 2px;
+	border: 0.5px solid red;
+	width: 99%;
+	background-color: white;
+	text-align: right;
+	color: red;
+}
+
+.product-image {
+	
+}
+
+.product-name-div {
+	display: block;
+}
+
+.product-name {
+	
+}
+
+.price-cart-block {
+	
+}
+
+.price-details-div {
+	display: flex;
+	margin: 3px 0px 10px 1px;
+}
+
+.mrp {
+	margin: 2px 0px 0px 0px;
+}
+
+.base-price-div {
+	
+}
+
+.base-price-del {
+	margin: 0px
+}
+
+.base-price-data {
+	
+}
+
+.base-price {
+	
+}
+
+.sale-price-data {
+	margin: 0px;
+}
+
+.sale-price-rs {
+	
+}
+
+.sale-price {
+	
+}
+
+.cart {
+	display: inline;
+	margin: 2px 2px 4px 2px;
+}
+
+.subtract-button {
+	
+}
+
+.quantity {
+	
+}
+
+.addition-button {
+	
+}
+
+.add-to-cart-button {
+	
+}
+</style>
+<script async="true" type="text/javascript">
+	const createEle=(element, id, classname)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('id', id);
+		return ele;
+
+	}
+	const createImage=(element, id, classname, width, height, src)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('width', width);
+		ele.setAttribute('height', height);
+		ele.setAttribute('src', src)
+		ele.setAttribute('id', id);
+		return ele;
+
+	}
+	
+	const inputElement=(element, id, classname,type,size,value)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('id', id);
+		ele.setAttribute('type', type);
+		ele.setAttribute('size', size);
+		ele.setAttribute('value', value);
+		return ele;
+	}
+
+	const createProductItem= ()=>{
+		let li=createEle('li','product-list','product-list');
+		let product_discount_div=createEle('div','product-discount-div','product-discount-div');
+		let discount=createEle('button','discount','discount');
+		let select_product_block=createEle('div','select-product','select-product-block');
+		let product_image_div=createEle('div','product-image-div','product-image-div');
+		let product_image=createImage('img','product-image','product-image',300,200,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg',);
+		let product_name_div=createEle('div','product-name-div','product-name-div');
+		
+		let product_name=createEle('h3','product-name','product-name');
+		
+		let price_cart_block=createEle('div','price-cart-block','price-cart-block');
+		let price_details_div=createEle('div','price-details-div','price-details-div');
+		let mrp=createEle('h5','mrp','mrp');
+		let base_price_div=createEle('div','base-price-div','base-price-div');
+		let base_price_del=createEle('div','base-price-del','base-price-del');
+		let base_price_data=createEle('span','base-price-data','base-price-data');
+		let base_price=createEle('span','base-price','base-price');
+		let sale_price_data=createEle('p','sale-price-data','sale-price-data');
+		let sale_price_rs=createEle('span','sale-price-rs','sale-price-rs');
+		let sale_price=createEle('span','sale-price','sale-price');
+		
+		let cart=createEle('div','cart','cart');
+		let subtract_button=createEle('button','subtract-button','subtract-button');
+		let quantity=inputElement('input','quantity','quantity',3,1);
+		let addition_button=createEle('button','addition-button','addition-button');
+		let add_to_cart_button=createEle('button','add-to-cart-button','add-to-cart-button');
+		
+		product_discount_div.appendChild(discount);
+		
+		product_image_div.appendChild(product_image);
+		product_name_div.appendChild(product_name);
+		select_product_block.appendChild(product_image_div);
+		select_product_block.appendChild(product_name_div);
+		
+		base_price_data.appendChild(base_price);
+		base_price_del.appendChild(base_price_data);
+		base_price_div.appendChild(base_price_del);
+		
+		sale_price_rs.appendChild(sale_price);
+		sale_price_data.appendChild(sale_price_rs);
+		
+		price_details_div.appendChild(mrp);
+		price_details_div.appendChild(base_price_div);
+		price_details_div.appendChild(sale_price_data);
+		
+		cart.appendChild(subtract_button);
+		cart.appendChild(quantity);
+		cart.appendChild(addition_button);
+		cart.appendChild(add_to_cart_button);
+		
+		price_cart_block.appendChild(price_details_div);
+		price_cart_block.appendChild(cart);
+		
+		li.appendChild(product_discount_div);
+		li.appendChild(select_product_block);
+		li.appendChild(price_cart_block);	
+		
+		return li;
+	};
+	
+	const getProductItem=async  (discount,image,name,base_price,sale_price)=>{
+		 let li=await createProductItem();
+		 console.log(document.getElementById('discount'));
+		 console.log(li)
+		document.getElementById('discount').innerHtml=discount;
+		let img=document.getElementById('product-image')
+		img.setAttribute('src',image);
+		img.img.setAttribute('alt',image.split('/').pop());
+		document.getElementById('base-price').innerHtml=base_price;
+		document.getElementById('sale-price').innerHtml=sale_price;
+		return li;
+	}
+	const printProductItems= ()=>{
+		let li= getProductItem(20,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg','pomegranate_4pcs.jpg',50,40);
+		let products_table=document.getElementById('products-table');
+		let row=products_table.insertRow(0);
+		let cell=row.insertCell(li);
+		
+		
+		
+	}
+</script>
+</head>
+<body>
+	<div>
+		<div>Category</div>
+
+
+		<div class="products" style="display: flex; justify-content: left;">
+
+			<ul class="products"
+				style="display: flex; overflow: hidden; margin: 0px; padding: 0px;">
+				<button onClick="printProductItems()">click me let's try</button>
+				<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg">
+				<table id="products-table">
+					<!-- <tr>
+
+						<td>
+							<li id="product-list" class="product-list"
+							style="padding-bottom: 8px; list-style-type: none; border: 1px solid grey; margin: 3px; width: 200px;">
+								<div id="product-discount-div" class="product-discount-div"
+									style="display: flex; justify-content: center;">
+									<button class="discount" id="discount"
+										style="margin: 2px; border: 0.5px solid red; width: 99%; background-color: white; text-align: right; color: red;">discount</button>
+								</div>
+								<div class="select-product-block" id="select-product-block">
+									<div id="product-image-div" class="product-image-div">
+										<img id="product-image" class="product-image"
+											src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg"
+											width="200px" height="150px">
+									</div>
+									<div class="product-name-div" id="product-name-div"
+										style="display: block;">
+										<h3 class="product-name" id="product-name">Title</h3>
+									</div>
+								</div>
+								<div class="price-cart-block" id="price-cart-block">
+									<div id="price-details-div" class="price-details-div"
+										style="display: flex; margin: 3px 0px 10px 1px;">
+										<h5 id="mrp" class="mrp" style="margin: 2px 0px 0px 0px;">MRP:</h5>
+										<div class="base-price-div" id="base-price-div">
+											<del class="base-price-del" id="base-price-del"
+												style="margin: 0px">
+												<span id="base-price-data" class="base-price-data">Rs
+													<span id="base-price" class="base-price">50</span>
+												</span>
+											</del>
+										</div>
+
+										<h4 id="sale-price-data" class="sale-price-data"
+											style="margin: 0px">
+											<span id="sale-price-rs" div="sale-price-rs">Rs <span
+												id="sale-price" class="sale-price">40</span></span>
+										</h4>
+									</div>
+
+									<div class="cart" id="cart"
+										style="display: inline; margin: 2px 2px 4px 2px;">
+
+										<button id="subtract-button" class="subtract-button">-</button>
+										<input id="quantity" class="quantity" type="text" size="2"
+											value="1" />
+										<button id="addition-button" class="addition-button">+</button>
+										<button id="add-to-cart-button" class="add-to-cart-button">ADD</button>
+									</div>
+								</div>
+						</li>
+
+						</td>
+					</tr> -->
+				</table>
+			</ul>
+		</div>
+
+
+
+	</div>
+	</div>
+</body>
+</html>
