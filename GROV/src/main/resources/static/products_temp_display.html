@@ -108,37 +108,65 @@
 		return ele;
 
 	}
+	const createButtonEle=(element, id, classname,value)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('id', id);
+		ele.setAttribute('value',value)
+		return ele;
+
+	}
 	const createImage=(element, id, classname, width, height, src)=>{
 		let ele = document.createElement(element);
 		ele.className = classname;
-		ele.setAttribute('width', width);
-		ele.setAttribute('height', height);
 		ele.setAttribute('src', src)
 		ele.setAttribute('id', id);
+		ele.setAttribute('width', width);
+		ele.setAttribute('height', height);
 		return ele;
 
 	}
 	
-	const inputElement=(element, id, classname,type,size,value)=>{
+	const inputElement=(element, id, classname,type,size,value,image)=>{
 		let ele = document.createElement(element);
 		ele.className = classname;
 		ele.setAttribute('id', id);
 		ele.setAttribute('type', type);
 		ele.setAttribute('size', size);
 		ele.setAttribute('value', value);
+		ele.setAttribute('src',image);
 		return ele;
 	}
+	
+	const createDiscount=(element, id, classname,discount)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('id', id);
+		var text=document.createTextNode(discount)
+		ele.appendChild(text)
+		return ele;
+	}
+	
+	const  createNameEle=(element, id, classname,name)=>{
+		let ele = document.createElement(element);
+		ele.className = classname;
+		ele.setAttribute('id', id);
+		let text=document.createTextNode(name);
+		ele.appendChild(text)
+		return ele;
 
-	const createProductItem= ()=>{
+	}
+
+	const createProductItem= (discountInput,image,name,base_priceInput,sale_priceInput)=>{
 		let li=createEle('li','product-list','product-list');
 		let product_discount_div=createEle('div','product-discount-div','product-discount-div');
-		let discount=createEle('button','discount','discount');
+		let discount=createDiscount('button','discount','discount',discountInput);
 		let select_product_block=createEle('div','select-product','select-product-block');
 		let product_image_div=createEle('div','product-image-div','product-image-div');
-		let product_image=createImage('img','product-image','product-image',300,200,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg',);
+		let product_image=createImage('img','product-image','product-image',200,150,image);
 		let product_name_div=createEle('div','product-name-div','product-name-div');
 		
-		let product_name=createEle('h3','product-name','product-name');
+		let product_name=createNameEle('h3','product-name','product-name',name);
 		
 		let price_cart_block=createEle('div','price-cart-block','price-cart-block');
 		let price_details_div=createEle('div','price-details-div','price-details-div');
@@ -146,16 +174,16 @@
 		let base_price_div=createEle('div','base-price-div','base-price-div');
 		let base_price_del=createEle('div','base-price-del','base-price-del');
 		let base_price_data=createEle('span','base-price-data','base-price-data');
-		let base_price=createEle('span','base-price','base-price');
+		let base_price=createNameEle('span','base-price','base-price',base_priceInput);
 		let sale_price_data=createEle('p','sale-price-data','sale-price-data');
 		let sale_price_rs=createEle('span','sale-price-rs','sale-price-rs');
-		let sale_price=createEle('span','sale-price','sale-price');
+		let sale_price=createNameEle('span','sale-price','sale-price',sale_priceInput);
 		
 		let cart=createEle('div','cart','cart');
-		let subtract_button=createEle('button','subtract-button','subtract-button');
+		let subtract_button=createButtonEle('button','subtract-button','subtract-button','-');
 		let quantity=inputElement('input','quantity','quantity',3,1);
-		let addition_button=createEle('button','addition-button','addition-button');
-		let add_to_cart_button=createEle('button','add-to-cart-button','add-to-cart-button');
+		let addition_button=createButtonEle('button','addition-button','addition-button','+');
+		let add_to_cart_button=createButtonEle('button','add-to-cart-button','add-to-cart-button','ADD');
 		
 		product_discount_div.appendChild(discount);
 		
@@ -191,25 +219,25 @@
 	};
 	
 	const getProductItem=async  (discount,image,name,base_price,sale_price)=>{
-		 let li=await createProductItem();
-		 console.log(document.getElementById('discount'));
+		 let li=await createProductItem(discount,image,name,base_price,sale_price);
+		 /* console.log(document.getElementById('discount'));
 		 console.log(li)
 		document.getElementById('discount').innerHtml=discount;
 		let img=document.getElementById('product-image')
 		img.setAttribute('src',image);
 		img.img.setAttribute('alt',image.split('/').pop());
 		document.getElementById('base-price').innerHtml=base_price;
-		document.getElementById('sale-price').innerHtml=sale_price;
+		document.getElementById('sale-price').innerHtml=sale_price; */
 		return li;
 	}
-	const printProductItems= ()=>{
-		let li= getProductItem(20,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg','pomegranate_4pcs.jpg',50,40);
+	const printProductItems= async ()=>{
+		let li= await getProductItem(20,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg','pomegranate_4pcs.jpg',50,40);
 		let products_table=document.getElementById('products-table');
 		let row=products_table.insertRow(0);
-		let cell=row.insertCell(li);
-		
-		
-		
+		let cell=row.insertCell(0);
+		cell.appendChild(li);
+		/* let ul=document.getElementById('temp');
+		ul.appendChild(li); */
 	}
 </script>
 </head>
@@ -225,7 +253,7 @@
 				<button onClick="printProductItems()">click me let's try</button>
 				<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg">
 				<table id="products-table">
-					<!-- <tr>
+					<tr>
 
 						<td>
 							<li id="product-list" class="product-list"
@@ -279,7 +307,7 @@
 						</li>
 
 						</td>
-					</tr> -->
+					</tr>
 				</table>
 			</ul>
 		</div>
