@@ -4,267 +4,13 @@
 <title>Insert title here</title>
 <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.product-list {
-	padding-bottom: 8px;
-	list-style-type: none;
-	border: 1px solid grey;
-	margin: 3px;
-	width: 200px;
-}
+ <link rel="stylesheet" href="http://localhost:9090/css/ProductItem.css"/>
 
-.product-discount-div {
-	display: flex;
-	justify-content: center;
-}
-
-.discount {
-	margin: 2px;
-	border: 0.5px solid red;
-	width: 99%;
-	background-color: white;
-	text-align: right;
-	color: red;
-}
-
-.product-image {
-	
-}
-
-.product-name-div {
-	display: block;
-}
-
-.product-name {
-	
-}
-
-.price-cart-block {
-	
-}
-
-.price-details-div {
-	display: flex;
-	margin: 3px 0px 10px 1px;
-}
-
-.mrp {
-	margin: 2px 0px 0px 0px;
-}
-
-.base-price-div {
-	
-}
-
-.base-price-del {
-	margin: 0px;
-}
-
-.base-price-data {
-	
-}
-
-.base-price {
-	
-}
-
-.sale-price-data {
-	margin: 0px;
-}
-
-.sale-price-rs {
-	
-}
-
-.sale-price {
-	
-}
-
-.cart {
-	display: inline;
-	margin: 2px 2px 4px 2px;
-}
-
-.subtract-button {
-	
-}
-
-.quantity {
-	
-}
-
-.addition-button {
-	
-}
-
-.add-to-cart-button {
-	
-}
-.cart-element{
-	margin:2px;
-}
-</style>
-<script async="true" type="text/javascript">
-	const createEle=(element, id, classname)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('id', id);
-		return ele;
-
-	}
-	const createButtonEle=(element, id, classname,value)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('id', id);
-		var text=document.createTextNode(value)
-		ele.appendChild(text)
-		return ele;
-
-	}
-	const createImage=(element, id, classname, width, height, src,image)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('src', src)
-		ele.setAttribute('id', id);
-		ele.setAttribute('width', width);
-		ele.setAttribute('height', height);
-		return ele;
-
-	}
-	
-	const inputElement=(element, id, classname,type,size,value)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('id', id);
-		ele.setAttribute('type', type);
-		ele.setAttribute('size', size);
-		/* var text=document.createTextNode(value)
-		ele.appendChild(text) */
-		ele.setAttribute('value', value);
-		return ele;
-	}
-	
-	const createDiscount=(element, id, classname,discount)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('id', id);
-		var text=document.createTextNode(discount)
-		ele.appendChild(text)
-		return ele;
-	}
-	
-	const  createNameEle=(element, id, classname,name)=>{
-		let ele = document.createElement(element);
-		ele.className = classname;
-		ele.setAttribute('id', id);
-		let text=document.createTextNode(name);
-		ele.appendChild(text)
-		return ele;
-
-	}
-
-	const createProductItem= (discountInput,image,name,base_priceInput,sale_priceInput)=>{
-		let li=createEle('li','product-list','product-list');
-		let product_discount_div=createEle('div','product-discount-div','product-discount-div');
-		let discount=createDiscount('button','discount','discount',discountInput);
-		let select_product_block=createEle('div','select-product','select-product-block');
-		let product_image_div=createEle('div','product-image-div','product-image-div');
-		let product_image=createImage('img','product-image','product-image',200,150,image);
-		let product_name_div=createEle('div','product-name-div','product-name-div');
-		
-		let product_name=createNameEle('h3','product-name','product-name',name);
-		
-		let price_cart_block=createEle('div','price-cart-block','price-cart-block');
-		let price_details_div=createEle('div','price-details-div','price-details-div');
-		let mrp=createEle('h5','mrp','mrp');
-		mrp.appendChild(document.createTextNode('MRP:'))
-		/* let del=createEle('del','base-price-del','base-price-del'); */
-		let base_price_div=createEle('div','base-price-div','base-price-div');
-		let base_price_del=createEle('del','base-price-del','base-price-del');
-		let base_price_data=createEle('span','base-price-data','base-price-data');
-		base_price_data.appendChild(document.createTextNode('Rs '));
-		let base_price=createNameEle('span','base-price','base-price',base_priceInput);
-		
-		let sale_price_data=createEle('h4','sale-price-data','sale-price-data');
-		
-		let sale_price_rs=createEle('span','sale-price-rs','sale-price-rs');
-		sale_price_rs.appendChild(document.createTextNode(' Rs '))
-		
-		let sale_price=createNameEle('span','sale-price','sale-price',sale_priceInput);
-		
-		let cart=createEle('div','cart','cart');
-		let subtract_button=createButtonEle('button','subtract-button','subtract-button','-');
-		let quantity=inputElement('input','quantity','quantity','text',3,1);
-		let addition_button=createButtonEle('button','addition-button','addition-button','+');
-		let add_to_cart_button=createButtonEle('button','add-to-cart-button','add-to-cart-button','ADD');
-		
-		
-		subtract_button.classList.add('cart-element');
-		quantity.classList.add('cart-element');
-		addition_button.classList.add('cart-element')
-		add_to_cart_button.classList.add('cart-element');
-		
-		product_discount_div.appendChild(discount);
-		
-		product_image_div.appendChild(product_image);
-		product_name_div.appendChild(product_name);
-		select_product_block.appendChild(product_image_div);
-		select_product_block.appendChild(product_name_div);
-		
-		base_price_data.appendChild(base_price);
-		base_price_del.appendChild(base_price_data);
-		base_price_div.appendChild(base_price_del);
-		
-		sale_price_rs.appendChild(sale_price);
-		sale_price_data.appendChild(sale_price_rs);
-		
-		price_details_div.appendChild(mrp);
-		price_details_div.appendChild(base_price_div);
-		price_details_div.appendChild(sale_price_data);
-		
-		cart.appendChild(subtract_button);
-		cart.appendChild(quantity);
-		cart.appendChild(addition_button);
-		cart.appendChild(add_to_cart_button);
-		
-		
-		
-		price_cart_block.appendChild(price_details_div);
-		price_cart_block.appendChild(cart);
-		
-		li.appendChild(product_discount_div);
-		li.appendChild(select_product_block);
-		li.appendChild(price_cart_block);	
-		
-		return li;
-	};
-	
-	const getProductItem=async  (discount,image,name,base_price,sale_price)=>{
-		 let li=await createProductItem(discount,image,name,base_price,sale_price);
-		 /* console.log(document.getElementById('discount'));
-		 console.log(li)
-		document.getElementById('discount').innerHtml=discount;
-		let img=document.getElementById('product-image')
-		img.setAttribute('src',image);
-		img.img.setAttribute('alt',image.split('/').pop());
-		document.getElementById('base-price').innerHtml=base_price;
-		document.getElementById('sale-price').innerHtml=sale_price; */
-		return li;
-	}
-	const printProductItems= async ()=>{
-		let li= await getProductItem(20,'http://localhost:9090/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg','pomegranate_4pcs.jpg',50,40);
-		let products_table=document.getElementById('products-table');
-		let row=products_table.insertRow(0);
-		let cell=row.insertCell(0);
-		cell.appendChild(li);
-		/* let ul=document.getElementById('temp');
-		ul.appendChild(li); */
-	}
-</script>
+<script  src="http://localhost:9090/js/ProductItem.js"></script>
 </head>
 <body>
 	<div>
-		<div>Category</div>
+		<div class="Category-name" id="Category-name" >Category</div>
 
 
 		<div class="products" style="display: flex; justify-content: left;">
@@ -274,7 +20,18 @@
 				<button onClick="printProductItems()">click me let's try</button>
 				<img src="/images/Fruits&Vegetables/Fruits/pomegranate_4pcs.jpg">
 				<table id="products-table">
-					<tr>
+					
+				</table>
+			</ul>
+		</div>
+
+
+
+	</div>
+</body>
+</html>
+
+<!-- <tr>
 
 						<td>
 							<li id="product-list" class="product-list"
@@ -328,14 +85,4 @@
 						</li>
 
 						</td>
-					</tr>
-				</table>
-			</ul>
-		</div>
-
-
-
-	</div>
-	</div>
-</body>
-</html>
+					</tr> -->

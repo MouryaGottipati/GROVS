@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://localhost:9090/css/CategoryDropDown.css" />
+<script src="http://localhost:9090/js/CategoryDropDown.js"></script>
+<link rel="stylesheet" href="http://localhost:9090/css/ProductItem.css"/>
+
+<script  src="http://localhost:9090/js/ProductItem.js"></script>
+</head>
+<body>
+	<div id="categoryBlock" onmouseleave="out()">
+		<a id="choose_category" class="anchor" onmouseover="getDropDown()">CHOOSE
+			CATEGORY</a>
+		<div id="categories">
+			<ul id="root_categories"></ul>
+			<ul id="sub_categories"></ul>
+		</div>
+	</div>
+
+	<div>
+		<div class="Category-name" id="Category-name" >Category</div>
+
+		<button onClick="printProductItems()">click me let's try</button>
+		<div class="products" style="display: flex; justify-content: left;">
+			<ul class="products"
+				style="display: flex; overflow: hidden; margin: 0px; padding: 0px;">
+				
+				<table id="products-table">
+					
+				</table>
+			</ul>
+		</div>
+
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+.product-list {
+	padding-bottom: 3px;
+	list-style-type: none;
+	border: 1px solid grey;
+	margin: 3px;
+	width: 200px;
+}
+
+.product-discount-div {
+	display: flex;
+	justify-content: center;
+}
+
+.discount {
+	margin: 1px 1px 0px 0px;
+	padding: 0px;
+	border: 0.5px solid red;
+	width: 99%;
+	background-color: white;
+	text-align: right;
+	color: red;
+	border: 0.5px solid red;
+}
+
+.discount-text {
+	    margin: 2px 2px 0px 0px;
+}
+
+.product-image {
+	
+}
+
+.product-name-div {
+	display: block;
+}
+
+.product-name {
+	margin: 10px 2px 13px 2px;
+}
+
+.price-cart-block {
+	margin: 0px 3px 2px 3px;
+	border: 1px solid black;
+	background-color: rgb(211, 211, 211);
+}
+
+.price-details-div {
+	display: flex;
+	margin: 3px 0px 10px 5px;
+}
+
+.mrp {
+	margin: 2px 0px 0px 0px;
+}
+
+.base-price-div {
+	
+}
+
+.base-price-del {
+	margin: 0px;
+}
+
+.base-price-data {
+	
+}
+
+.base-price {
+	
+}
+
+.sale-price-data {
+	margin: 0px;
+}
+
+.sale-price-rs {
+	
+}
+
+.sale-price {
+	
+}
+
+.rating-block {
+	display: flex;
+	justify-content: center;
+	justify-content: right;
+	padding-right: 0px;
+	margin-left: 25px;
+	margin-top: 1px;
+}
+
+.rating {
+	margin: 1px 1px 1px 2px;
+	padding: 1px 4px 1px 4px;
+	border: 1px solid red;
+}
+.rating-icon{
+	    width: 17px;
+    height: 17px;
+    margin: 1px 1px 1px 2px;
+}
+
+.cart {
+	display: inline;
+	margin: 2px 2px 4px 2px;
+}
+
+.subtract-button {
+	
+}
+
+.quantity {
+	
+}
+
+.addition-button {
+	
+}
+
+.add-to-cart-button {
+	
+}
+
+.cart-element {
+	margin: 2px 1px 2px 1px;
+}
