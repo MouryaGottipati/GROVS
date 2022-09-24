@@ -3,6 +3,11 @@ const userAction=async ()=>{
 	const myJson = await response.json();
 	return myJson;
 } 
+const getRootCategoryProducts= async (id)=>{
+	const response = await fetch('http://localhost:9090/getRootCategoryProducts/'+id);
+	const myJson =await response.json();
+	return myJson;
+}
   
   const getDropDown=async ()=>{
 	  const root_categories=document.getElementById('root_categories');
@@ -21,6 +26,8 @@ const userAction=async ()=>{
 		  a.className="anchor"
 		  li.setAttribute("id","root_category")
 		  li.setAttribute("onmouseover","subCategories("+myJson[i]['id']+")")
+		  li.setAttribute("onClick","printProductItems("+myJson[i]['id']+ ")")
+		  console.log("getDropDown",myJson[i]['id'])
 		  li.appendChild(a)
 		  root_categories.appendChild(li);
 	  } 
@@ -31,7 +38,7 @@ const userAction=async ()=>{
 	  let myJson=await userAction();
 	  const sub_categories=document.getElementById('sub_categories');
 	  while(sub_categories.hasChildNodes()){
-		  await sub_categories.removeChild(sub_categories.firstChild);
+		   sub_categories.removeChild(sub_categories.firstChild);
 	  }
 	  let root_categories=document.getElementById('sub_categories');
 	  let a;

@@ -13,11 +13,11 @@ import javax.persistence.Table;
 public class Review {
 	@Id
 	@Column(name="id")
-	private long id;
+	private String id;
 	@Column(name="users_id",nullable=false)
-	private long userId;
+	private String userId;
 	@Column(name="products_id",nullable=false)
-	private long productId;
+	private String productId;
 	@Column(name="users_name",nullable=false,length=50)
 	private String userName;
 	@Column(name="review")
@@ -33,22 +33,22 @@ public class Review {
 	public void setUpdatedTime(LocalDateTime updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public long getProductId() {
+	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(long productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 	public String getUserName() {

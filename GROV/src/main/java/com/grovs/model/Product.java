@@ -8,22 +8,39 @@ import java.util.TreeSet;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import com.grovs.sequenceIdGenerator.SequenceIdGenerator;
+
 
 @Entity
 @Table(name="products")
 public class Product {
 	@Id
 	@Column(name="id")
-	private long id;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="prod_seq")
+	@GenericGenerator(name="prod_seq",
+		strategy="com.grovs.sequenceIdGenerator.SequenceIdGenerator",
+		parameters= {
+				 @Parameter(name=SequenceIdGenerator.INCREMENT_PARAM,value="1"),
+                 @Parameter(name=SequenceIdGenerator.VALUE_PREFIX_PARAMETER,value="P_"),
+                 @Parameter(name=SequenceIdGenerator.NUMBER_FORMAT_PARAMETER,value="%05d")
+		}
+	)
+	private String id;
 	@Column(name="name",nullable=false)
 	private String name;
 	@Column(columnDefinition="longText not null")
 	private String description;
-	@Column(name="image",nullable=false,length=64)
+	@Column(name="image",nullable=false)
 	private String image;
 	@Column(name="base_price",nullable=false)
 	private double basePrice;
@@ -44,10 +61,10 @@ public class Product {
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="products_id")
 	private Set<Review> review=new TreeSet<>();
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
