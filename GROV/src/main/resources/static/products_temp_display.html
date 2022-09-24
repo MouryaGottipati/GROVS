@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .product-list {
 	padding-bottom: 8px;
@@ -56,7 +57,7 @@
 }
 
 .base-price-del {
-	margin: 0px
+	margin: 0px;
 }
 
 .base-price-data {
@@ -99,6 +100,9 @@
 .add-to-cart-button {
 	
 }
+.cart-element{
+	margin:2px;
+}
 </style>
 <script async="true" type="text/javascript">
 	const createEle=(element, id, classname)=>{
@@ -112,11 +116,12 @@
 		let ele = document.createElement(element);
 		ele.className = classname;
 		ele.setAttribute('id', id);
-		ele.setAttribute('value',value)
+		var text=document.createTextNode(value)
+		ele.appendChild(text)
 		return ele;
 
 	}
-	const createImage=(element, id, classname, width, height, src)=>{
+	const createImage=(element, id, classname, width, height, src,image)=>{
 		let ele = document.createElement(element);
 		ele.className = classname;
 		ele.setAttribute('src', src)
@@ -127,14 +132,15 @@
 
 	}
 	
-	const inputElement=(element, id, classname,type,size,value,image)=>{
+	const inputElement=(element, id, classname,type,size,value)=>{
 		let ele = document.createElement(element);
 		ele.className = classname;
 		ele.setAttribute('id', id);
 		ele.setAttribute('type', type);
 		ele.setAttribute('size', size);
+		/* var text=document.createTextNode(value)
+		ele.appendChild(text) */
 		ele.setAttribute('value', value);
-		ele.setAttribute('src',image);
 		return ele;
 	}
 	
@@ -171,19 +177,32 @@
 		let price_cart_block=createEle('div','price-cart-block','price-cart-block');
 		let price_details_div=createEle('div','price-details-div','price-details-div');
 		let mrp=createEle('h5','mrp','mrp');
+		mrp.appendChild(document.createTextNode('MRP:'))
+		/* let del=createEle('del','base-price-del','base-price-del'); */
 		let base_price_div=createEle('div','base-price-div','base-price-div');
-		let base_price_del=createEle('div','base-price-del','base-price-del');
+		let base_price_del=createEle('del','base-price-del','base-price-del');
 		let base_price_data=createEle('span','base-price-data','base-price-data');
+		base_price_data.appendChild(document.createTextNode('Rs '));
 		let base_price=createNameEle('span','base-price','base-price',base_priceInput);
-		let sale_price_data=createEle('p','sale-price-data','sale-price-data');
+		
+		let sale_price_data=createEle('h4','sale-price-data','sale-price-data');
+		
 		let sale_price_rs=createEle('span','sale-price-rs','sale-price-rs');
+		sale_price_rs.appendChild(document.createTextNode(' Rs '))
+		
 		let sale_price=createNameEle('span','sale-price','sale-price',sale_priceInput);
 		
 		let cart=createEle('div','cart','cart');
 		let subtract_button=createButtonEle('button','subtract-button','subtract-button','-');
-		let quantity=inputElement('input','quantity','quantity',3,1);
+		let quantity=inputElement('input','quantity','quantity','text',3,1);
 		let addition_button=createButtonEle('button','addition-button','addition-button','+');
 		let add_to_cart_button=createButtonEle('button','add-to-cart-button','add-to-cart-button','ADD');
+		
+		
+		subtract_button.classList.add('cart-element');
+		quantity.classList.add('cart-element');
+		addition_button.classList.add('cart-element')
+		add_to_cart_button.classList.add('cart-element');
 		
 		product_discount_div.appendChild(discount);
 		
@@ -207,6 +226,8 @@
 		cart.appendChild(quantity);
 		cart.appendChild(addition_button);
 		cart.appendChild(add_to_cart_button);
+		
+		
 		
 		price_cart_block.appendChild(price_details_div);
 		price_cart_block.appendChild(cart);
@@ -297,11 +318,11 @@
 									<div class="cart" id="cart"
 										style="display: inline; margin: 2px 2px 4px 2px;">
 
-										<button id="subtract-button" class="subtract-button">-</button>
-										<input id="quantity" class="quantity" type="text" size="2"
+										<button id="subtract-button" class="subtract-button,cart-element">-</button>
+										<input id="quantity" class="quantity,cart-elemet" type="text" size="2"
 											value="1" />
-										<button id="addition-button" class="addition-button">+</button>
-										<button id="add-to-cart-button" class="add-to-cart-button">ADD</button>
+										<button id="addition-button" class="addition-button,cart-element">+</button>
+										<button id="add-to-cart-button" class="add-to-cart-button,cart-element">ADD</button>
 									</div>
 								</div>
 						</li>
