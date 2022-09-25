@@ -1,0 +1,47 @@
+body{
+	margin:0px;
+}
+.grovs-header-block{
+	background-color: rgb(2 246 50 / 72%);
+	padding: 5px 0px 5px 5px;
+	border-radius:10px 10px 0px 0px;
+}
+
+.grovs-title{
+	color: rgba(200,86,135,1);
+    font-style: oblique;
+    text-shadow: 1px 1px red;	
+    margin: 0px 0px 100px 10px;
+    display: inline;
+}
+.grovs-title-block{
+	display:inline;
+}
+.cart-user-block{
+	display:flex;
+	float:right;
+}
+.cart-block{
+	    margin: 5px;;
+}
+.cart{
+	    display: inline;
+    margin: 2px 2px 4px 2px;
+}
+.user-name:hover{
+	color:green;
+}
+
+.user-name{
+	font-style:oblique;
+	    margin: 12px 2px;
+}
+
+.user{
+	display:flex;
+}
+
+.profile-image{
+	    height: 40px;
+    margin-right: 10px;
+}

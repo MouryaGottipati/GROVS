@@ -1,5 +1,6 @@
 #categoryBlock {
 	display: inline-block;
+	margin-left:8px;
 }
 
 #choose_category {
@@ -68,7 +69,7 @@
 	background-color : grey;
 	margin: 0;
 	padding: 0;
-	width: 170px;
+	/* width: 183px; */
 	height: 118px;
 	list-style-type: none;
 	font-size: 13px;
