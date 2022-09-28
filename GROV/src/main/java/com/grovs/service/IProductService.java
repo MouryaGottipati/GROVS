@@ -5,7 +5,5 @@ import java.util.Set;
 import com.grovs.model.Product;
 
 public interface IProductService {
-	
-	public Set<Product> getAllProducts();
-
+		public Object fetchSingleProduct(String id);
 }

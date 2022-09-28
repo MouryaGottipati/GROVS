@@ -1,5 +1,0 @@
-package com.grovs.dao;
-
-public class OrderService implements IOrderDao{
-
-}

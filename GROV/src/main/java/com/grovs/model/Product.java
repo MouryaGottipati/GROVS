@@ -58,9 +58,18 @@ public class Product {
 	private long categoryId;
 	@Column(name="updated_time",insertable=false,updatable=false,columnDefinition="datetime default current_timestamp on update current_timestamp")
 	private LocalDateTime updatedTime;
+	
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="products_id")
-	private Set<Review> review=new TreeSet<>();
+	private Set<Review> review;
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", image=" + image
+				+ ", basePrice=" + basePrice + ", discount=" + discount + ", gst=" + gst + ", expiryDate=" + expiryDate
+				+ ", returnPeriod=" + returnPeriod + ", stock=" + stock + ", categoryId=" + categoryId
+				+ ", updatedTime=" + updatedTime + ", review=" + review + "]";
+	}
 	public String getId() {
 		return id;
 	}

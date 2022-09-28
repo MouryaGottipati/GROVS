@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="reviews")
 public class Review {
+	
 	@Id
 	@Column(name="id")
 	private String id;
@@ -27,6 +28,12 @@ public class Review {
 	@Column(name="updated_time",insertable=false,updatable=false,columnDefinition="datetime default current_timestamp on update current_timestamp")
 	private LocalDateTime updatedTime;
 	
+	
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", userId=" + userId + ", productId=" + productId + ", userName=" + userName
+				+ ", review=" + review + ", rating=" + rating + ", updatedTime=" + updatedTime + "]";
+	}
 	public LocalDateTime getUpdatedTime() {
 		return updatedTime;
 	}

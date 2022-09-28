@@ -1,0 +1,128 @@
+
+.categories-offers-block{
+	display:flex;
+}
+body{
+	margin:0px;
+}
+.fixed-block{
+	width:100%;
+	position:sticky;
+	position:fixed;
+}
+
+.product_image_cell{
+	
+	width:40%;
+	height:60%;
+}
+.product_print_image{
+	border:0px solid grey;
+	border-radius:3px;
+	
+}
+.product_print_image:hover{
+	box-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.description_row{
+	border:2px solid grey;
+	border-radius:5px;
+}
+
+.description_row:hover{
+	box-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+.product_details_cell{
+	display: inline-flex;
+    justify-content: left;
+    padding-top: 5%;
+    padding-left: 3%;
+    padding-bottom: 5%;
+    padding-right: 0px;
+    border: 3px solid grey;
+    border-radius: 10px;
+	
+}
+.product_details_cell:hover{
+	box-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+
+.rating-row{
+	width:100%;
+	opacity:0.8;
+	margin:4px;
+	background-color: whitesmoke;
+}
+
+.ratingTable{
+	width:100%;
+	   border: 3px solid red;
+	border-radius:20px;	
+}
+
+.rating_naming_row{
+	display:inline-table;
+	justify-content:center;
+	width:100%;
+	border-bottom: 1px solid darkred;
+	background-color:aqua;
+	margin: 20px 20px 20px 0px;
+}
+.rating-name{
+	margin:0px;
+}
+
+.rating-cells{
+	width:100%
+}
+.average-rating-block{
+	    display: flex;
+    margin: 0px;
+}
+.average-rating{
+	margin:0px;
+}
+.number-of-ratings{
+	margin: 0px;
+    padding: 0px;
+}
+.rateButton{
+	color:blue;
+	text-color:red;
+}
+.rating-cell{
+	display:flex;
+}
+
+.rate-button-cell{
+	margin:0px
+}
+
+.userRatingReviewCell{
+	margin-top:20px;
+	display:flex;
+}
+.review-data{
+	margin:0px 0px 0px 20px;
+}
+.user-rating-block{
+	diplay:inline-flex;
+}
+.userReviewNameDateCell{
+	display:flex;
+	  border-bottom: 1px solid
+}
+.userName,.dateOfReview{
+	margin:20px 30px 20px 0px;
+}
+.username-date-row{
+
+	border-bottom:1px solid red;
+	
+}
+.user-rating-block{
+	display:flex;
+}
+.user-rating-value{
+	margin:0px;
+}

@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-D:\Grocery\GROVS\GROV\GROVS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1891693865.index
-\GROVS2\src\main\java
