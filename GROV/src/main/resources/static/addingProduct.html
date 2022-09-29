@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>	
+
+		<form action="productUpload" enctype="multipart/form-data" method="post">
+				base_price:<input type="text" inputmode="decimal" name="base_price" class="base-price" id="base-price" min=1/>
+				<!-- root_category_id:<select name="root_category" id="root-category" class="root-category">
+					<option disabled selected>RootCategory</option>
+					<option value="1">Fruits&Vegetables</option>
+					<option value="2">FoodGrains,Oil&Masala</option>
+					<option value="3">Eggs,Meat&Fish</option>
+					<option value="4">Cakes&Dairy</option>
+				</select> -->
+				category_id:<select name="category" id="category" class="category">
+					<option disabled selected>Category</option>
+					<option value="1">Fruits</option>
+					<option value="2">Vegetables</option>
+					<option value="3">Atta, Flours & Sooji</option>
+					<option value="4">Masalas & Spices</option>
+					<option value="5">Rice & Rice Products</option>
+					<option value="6">Eggs</option>
+					<option value="7">Fish & Seafood</option>
+					<option value="8">Poultry</option>
+					<option value="9">Cakes & Pastries</option>
+					<option value="10">Dairy</option>
+				</select>
+				description:<input type="text" id="description" class="description" name="description">
+				discount:<input type="text" inputmode="decimal" class="discount" id="discount" min=1 max=99 name="discount">
+				gst:<input type="text" inputmode="decimal" class="gst" id="gst" min=1 max=99 name="gst">
+				image:<input type="file" name="image" accept="image/png,image/jpeg" name="image"/>
+				name:<input type="text" name="name" id="name" name="name"/>
+				return_period:<input type="text" inputmode="numeric" min=1 max=10 name="return_period">
+				stock:<input type="text" inputmode="numeric" min=0 name="stock"/>
+				
+				<input type="submit"/>
+				
+		</form>
+
+</body>
+</html>

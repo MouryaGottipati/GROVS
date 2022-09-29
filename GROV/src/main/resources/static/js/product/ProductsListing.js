@@ -105,7 +105,7 @@ const getSubCategoryProducts= async (id)=>{
 		let quantity=document.getElementById('quantity').value;
 		let quantityNumber;
 		if(Number(quantity)===0){
-			quantityNumber=1;
+			quantityNumber=0;
 		}
 		else{
 		quantityNumber=getNumber(quantity);
@@ -119,6 +119,7 @@ const getSubCategoryProducts= async (id)=>{
 		let quantity=document.getElementById('quantity').value;
 		let quantityNumber=getNumber(quantity);
 		if(typeof quantityNumber==='number' && quantityNumber>0){
+			addCartItem(productId,quantityNumber)
 		}else{
 			alert("Enter valid data in input");
 		}
@@ -175,7 +176,7 @@ const getSubCategoryProducts= async (id)=>{
 		let add_to_cart_button=createButtonEle('button','add-to-cart-button','add-to-cart-button','ADD');
 		
 		//Add to cart
-		add_to_cart_button.setAttribute('onClick','addToCart('+productId+')')
+		add_to_cart_button.setAttribute('onClick','addToCart(+"'+productId+'")')
 		
 		subtract_button.classList.add('cart-element');
 		quantity.classList.add('cart-element');
@@ -241,14 +242,17 @@ const getSubCategoryProducts= async (id)=>{
 		let numberOfRow=0;
 		let numberOfCell=0;
 		document.getElementById('category-name').innerHTML=myJson[0][1];
+		console.log(myJson);
+		let row=products_table.insertRow(numberOfRow);
+		let cell;
 		for(let i=0;i<myJson.length;i++){
 			
-			let row=products_table.insertRow(numberOfRow);
-			let cell=row.insertCell(numberOfCell);
+			
+			cell=row.insertCell(numberOfCell++)
 			let li= createProductItem(myJson[i][0],myJson[i][2],myJson[i][3],myJson[i][4],myJson[i][5],myJson[i][6],myJson[i][7]);
 			cell.append(li);
 			if(numberOfCell==5){
-				numberOfRow+=1;
+				row.insertRow(++numberOfRow);
 				numberOfCell=0;
 			}
 		}
@@ -266,14 +270,15 @@ const getSubCategoryProducts= async (id)=>{
 		let numberOfRow=0;
 		let numberOfCell=0;
 		document.getElementById('category-name').innerHTML=myJson[0][1];
+		let row=products_table.insertRow(numberOfRow);
+		let cell;
 		for(let i=0;i<myJson.length;i++){
 			
-			let row=products_table.insertRow(numberOfRow);
-			let cell=row.insertCell(numberOfCell);
+			cell=row.insertCell(numberOfCell);
 			let li= createProductItem(myJson[i][0],myJson[i][2],myJson[i][3],myJson[i][4],myJson[i][5],myJson[i][6],myJson[i][7]);
 			cell.append(li);
 			if(numberOfCell==5){
-				numberOfRow+=1;
+				row.insert(++numberOfRow);
 				numberOfCell=0;
 			}
 		}	
