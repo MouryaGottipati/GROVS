@@ -33,9 +33,11 @@ const userAction=async ()=>{
   };
   
   function redirectToRootProductListing(id){
+	console.log("in root")
 	window.location.href = "http://localhost:9090/product/products_listing_page.html?rootCatId="+id;
 }
   function redirectToProductListing(id){
+	console.log("in sub root")
 	window.location.href = "http://localhost:9090/product/products_listing_page.html?catId="+id;
 }
   

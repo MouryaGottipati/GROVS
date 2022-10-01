@@ -17,7 +17,7 @@ public class RootCategoryController {
 	@GetMapping(path="getRootCategoryProducts/{id}")
 	public Object getRootCategoryProducs(@PathVariable int id) {
 		System.out.println(id);
-		return rootCategoryServiceObject.fetchRootCategoryPrducts(id);
+		return rootCategoryServiceObject.fetchRootCategoryProducts(id);
 	}
 	
 	

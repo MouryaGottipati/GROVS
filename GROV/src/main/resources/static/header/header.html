@@ -3,24 +3,40 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../css/header/header.css"/>
+<link rel="stylesheet" href="../../css/header/header.css" />
+ <!-- <script async="true" src="../../js/jselements/jselements.js"></script>  -->
+<script async="true" src="../../js/header/header.js"></script>
+<script  src="../../js/cart/cart.js"></script>
+<link rel="stylesheet" href="../../css/cart/cart.css" />
 </head>
 <body>
 	<div class="grovs-header-block" id="grovs-header-block">
-	
-	<div class="grovs-title-block" id="grovs-title-block">
-	<h1 class="grovs-title" id="grovs-title">GROVS</h1>
+
+		<div class="grovs-title-block" id="grovs-title-block">
+			<h1 class="grovs-title" id="grovs-title">GROVS</h1>
+		</div>
+		<div class="cart-user-block" id="cart-user-block">
+			<div class="cart-display-block" id="cart-display-block"  onMouseLeave="hideCart()">
+				<div class="cart-block" id="cart-block" onMouseOver="displayCart()">
+					<h2 class="cart" id="cart">
+						Cart <span class="numberOfItems" id="numberOfItems"></span>
+					</h2>
+				</div>
+				<div class="cart-display" id="cart-display">
+					<div class="no-items" id="no-items">
+						<span class="no-items-span" id="no-items-span">No Items</span>
+					</div>
+					<ul class="cart-items" id="cart-items"></ul>
+					<button class="check-out" id="check-out">CheckOut</button>
+				</div>
+			</div>
+
+			<div class="user" id="user">
+				<h4 class="user-name" id="user-name">Login/SignUp</h4>
+				<img src="../../images/Profile/Profile.png" alt="Profile"
+					class='profile-image' id='profile-image' />
+			</div>
+		</div>
 	</div>
-	<div class="cart-user-block" id="cart-user-block">
-	<div class="cart-block" id="cart-block">
-	<h2 class="cart" id="cart">Cart</h2>
-	</div>
-	
-	<div class="user" id="user">
-	<h4 class="user-name" id="user-name">Login/SignUp</h4>
-	<img src="../../images/Profile/Profile.png" alt="Profile"  class='profile-image' id='profile-image'/>
-	</div>
-	</div>
-</div>
 </body>
 </html>

@@ -33,15 +33,16 @@ public class RootCategoryService implements IRootCategoryService{
 //		System.out.println(new LinkedHashSet<>(rootCategoryList));
 		return new LinkedHashSet<>(rootCategoryList);
 	}
-	public List<Object> fetchRootCategoryPrducts(int id) {
+	public List<Object> fetchRootCategoryProducts(int id) {
 		
 //		System.out.println(id);
 		// TODO Auto-generated method stub
 //		List<Category> subCategoryList=iCategoryDaoObject.findAllByRootCategoryId(id);
 		
-		List<Object> l=iRootCategoryDaoObject.queryToRootCategoryProducts(id);
+		List<Object> l=iRootCategoryDaoObject.queryToGetRootCategoryProducts(id);
 //		System.out.println(l);
 //		l.forEach(p->System.out.println(p));
+		l.size();
 //		Set<Product> setOfAllProducts=iProductDaoObject.findByCategoryId(null);
 		return l;
 	}

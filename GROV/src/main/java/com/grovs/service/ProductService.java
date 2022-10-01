@@ -25,6 +25,7 @@ public class ProductService implements IProductService{
 //		System.out.println(iProductDaoObject.findById(id).get());
 		TreeSet<Review> reviewSet=new TreeSet<>((p1,p2)->p1.getUpdatedTime().isBefore(p2.getUpdatedTime())?1:-1);
 		Product product=iProductDaoObject.findById(id).get();
+		System.out.println(product);
 		product.getReview().forEach(p->reviewSet.add(p));
 		product.setReview(reviewSet);
 //		product.getReview().parallelStream().limit(5).map(p->reviewSet.add(p)).close();

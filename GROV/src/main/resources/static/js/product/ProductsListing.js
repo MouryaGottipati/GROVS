@@ -1,4 +1,4 @@
-window.onload = function() {
+$(function() {
 	const params = new URLSearchParams(location.search);
 	if(params.has('catId')){
 	var categoryId = params.get('catId');
@@ -8,7 +8,7 @@ window.onload = function() {
 	var rootCategoryId=params.get("rootCatId");
 	printProductItems(rootCategoryId)
 	}
-};
+});
 	
 	const getRootCategoryProducts= async (id)=>{
 	const response = await fetch('http://localhost:9090/getRootCategoryProducts/'+id);
@@ -20,7 +20,7 @@ const getSubCategoryProducts= async (id)=>{
 	const myJson =await response.json();
 	return myJson;
 }
-	const createEle=(element, id, classname)=>{
+	/*const createEle=(element, id, classname)=>{
 		let ele = document.createElement(element);
 		ele.className = classname;
 		ele.setAttribute('id', id);
@@ -114,18 +114,21 @@ const getSubCategoryProducts= async (id)=>{
 			document.getElementById('quantity').value=quantityNumber+1;
 		}
 	}
-	
+	const addCartProduct=async (productId,quantityNumber)=>{
+		const status=await fetch("http://localhost:9090/addCartProduct/"+productId+"/"+quantityNumber);
+		const myJson=await status.json();
+	}
 	const addToCart=(productId)=>{
 		let quantity=document.getElementById('quantity').value;
 		let quantityNumber=getNumber(quantity);
 		if(typeof quantityNumber==='number' && quantityNumber>0){
-			addCartItem(productId,quantityNumber)
+			addProductToCart(productId,quantityNumber)
 		}else{
 			alert("Enter valid data in input");
 		}
 	}
 	
-	const fetchSingleProductDetails=(productId)=>{
+*/	const fetchSingleProductDetails=(productId)=>{
 		window.location.href = "http://localhost:9090/product/product_details.html?productId="+productId;
 	}
 
@@ -176,7 +179,7 @@ const getSubCategoryProducts= async (id)=>{
 		let add_to_cart_button=createButtonEle('button','add-to-cart-button','add-to-cart-button','ADD');
 		
 		//Add to cart
-		add_to_cart_button.setAttribute('onClick','addToCart(+"'+productId+'")')
+		add_to_cart_button.setAttribute('onClick',"addToCart('"+productId+"')")
 		
 		subtract_button.classList.add('cart-element');
 		quantity.classList.add('cart-element');

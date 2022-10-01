@@ -9,6 +9,6 @@ import com.grovs.model.RootCategory;
 
 public interface IRootCategoryService {
 	public LinkedHashSet<RootCategory> getAllCategories();
-	public List fetchRootCategoryPrducts(int id);
+	public List fetchRootCategoryProducts(int id);
 	
 }

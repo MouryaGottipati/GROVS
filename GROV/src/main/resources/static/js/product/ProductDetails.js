@@ -4,13 +4,11 @@ $(function(){
 	$(".category-dropdown").load("http://localhost:9090/category/category_dropdown.html")
 	$(".offers-button").load("http://localhost:9090/offersdeals/offer_button.html")
 	$(".products_listing").load("http://localhost:9090/product/products_listing.html");
-});
-window.onload = function() {
 	const params = new URLSearchParams(location.search);
 	var productId=params.get("productId");
 	PrintSingleProductDetails(productId)
-	
-};
+});
+
 const fetchProductDetails = async (productId) => {
 	const response = await fetch("http://localhost:9090/fetchProductDetails/" + productId + "");
 	const myJson = await response.json();
@@ -240,6 +238,7 @@ const ratingNamingBlock=(numberOfRating,averageRatings)=>{
 }
 
 const printRatingBlock =  (tableTag, review) => {
+	console.log(review)
 	let totalRating = 0;
 	for (let i = 0; i < review.length; i++) {
 			totalRating+=review[i]['rating'];
