@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +38,22 @@ public class CartController {
 	public ResponseEntity<Cart> getCartProducts(HttpServletRequest request, HttpSession session) {
 		return ResponseEntity.status(HttpStatus.OK).body(cartServiceObject.getCartProducts(request, session));
 	}
-
+	
+	@PostMapping("removeProductQuantity/{cartItemId}")
+	public ResponseEntity<String> removeProductQuantity(@PathVariable("cartItemId") String cartItemId,HttpServletRequest request) {
+		cartServiceObject.removeProductQuantity(cartItemId,request);
+		return   ResponseEntity.ok("SuccessFull");
+	}
+	
+	@PostMapping("addProductQuantity/{cartItemId}")
+	public ResponseEntity<String> addProductQuantity(@PathVariable("cartItemId") String cartItemId,HttpServletRequest request) {
+		cartServiceObject.addProductQuantity(cartItemId,request);
+		return   ResponseEntity.ok("SuccessFull");
+	}
+	
+	@PostMapping("removeProduct/{cartItemId}")
+	public ResponseEntity<String> removeProduct(@PathVariable("cartItemId") String cartItemId,HttpServletRequest request) {
+		cartServiceObject.removeProduct(cartItemId,request);
+		return   ResponseEntity.ok("SuccessFull");
+	}
 }

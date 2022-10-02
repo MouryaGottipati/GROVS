@@ -1,5 +1,5 @@
 package com.grovs.dao;
 
-public class UserDao implements IUserDao{
+public class UserDao {
 
 }

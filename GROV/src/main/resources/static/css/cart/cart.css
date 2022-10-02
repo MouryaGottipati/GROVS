@@ -2,7 +2,7 @@
 	display: none;
 	position: absolute;
 	border: 1px solid red;
-	max-height: 200px;
+	max-height: 270px;
 	margin-top: 40px;
 	width: 475px;
 	padding: 0px;
@@ -27,6 +27,7 @@
 .cart-items {
 	display: none;
 	overflow-y: scroll;
+	max-height:200px;
 	padding: 0px;
 }
 

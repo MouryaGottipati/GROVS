@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +17,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.grovs.enums.UserRole;
 import com.grovs.sequenceIdGenerator.SequenceIdGenerator;
 
 @Entity
@@ -32,26 +38,37 @@ public class User {
 			@Parameter(name = SequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "U_"),
 			@Parameter(name = SequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d") })
 	private String id;
+	@Email
+	@NotEmpty
 	@Column(name = "mail", nullable = false, unique = true)
 	private String mail;
+	@NotEmpty
+	@Size(min = 10, max = 11, message = "Number of digits in phone number must be ten")
 	@Column(name = "phone", nullable = false, unique = true)
 	private String mobile;
+	@NotEmpty
+	@Size(min = 8, message = "Password length must be atleast 8 characters")
 	@Column(name = "password", nullable = false)
 	private String password;
+	@NotEmpty
 	@Column(name = "date_of_birth")
-	private LocalDate date_of_birth;
+	private LocalDate dateOfBirth;
 	@Column(name = "age")
 	private int age;
+	@NotEmpty
+	@Size(min = 2, message = "minimum 2 characters required")
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@Column(name = "middle_name")
-	private String middle_name;
+	private String middleName;
+	@NotEmpty
 	@Column(name = "last_name", nullable = false)
-	private String last_name;
+	private String lastName;
 	@Column(name = "creation_time", columnDefinition = "datetime default current_timestamp")
-	private LocalDateTime creation_time;
+	private LocalDateTime creationTime;
 	@Column(name = "role", nullable = false)
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
 	/*
 	 * @OneToMany(targetEntity = Cart.class,fetch=FetchType.EAGER)
 	 * 
@@ -59,7 +76,7 @@ public class User {
 	 * cart;
 	 */
 	@OneToOne(targetEntity = Cart.class)
-	@JoinColumn(name="cart_id",referencedColumnName="id")
+	@JoinColumn(name = "cart_id", referencedColumnName = "id")
 	private Cart cartId;
 
 	public String getId() {
@@ -78,10 +95,6 @@ public class User {
 		return password;
 	}
 
-	public LocalDate getDate_of_birth() {
-		return date_of_birth;
-	}
-
 	public int getAge() {
 		return age;
 	}
@@ -90,20 +103,14 @@ public class User {
 		return firstName;
 	}
 
-	public String getMiddle_name() {
-		return middle_name;
-	}
 
-	public String getLast_name() {
-		return last_name;
-	}
 
-	public LocalDateTime getCreation_time() {
-		return creation_time;
-	}
-
-	public String getRole() {
+	public UserRole getRole() {
 		return role;
+	}
+
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	public void setId(String id) {
@@ -122,8 +129,44 @@ public class User {
 		this.password = password;
 	}
 
-	public void setDate_of_birth(LocalDate date_of_birth) {
-		this.date_of_birth = date_of_birth;
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public LocalDateTime getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(LocalDateTime creationTime) {
+		this.creationTime = creationTime;
+	}
+
+	public Cart getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Cart cartId) {
+		this.cartId = cartId;
 	}
 
 	public void setAge(int age) {
@@ -134,20 +177,6 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	public void setMiddle_name(String middle_name) {
-		this.middle_name = middle_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
-
-	public void setCreation_time(LocalDateTime creation_time) {
-		this.creation_time = creation_time;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
 
 }

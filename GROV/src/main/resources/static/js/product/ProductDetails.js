@@ -233,12 +233,13 @@ const ratingNamingBlock=(numberOfRating,averageRatings)=>{
 	cell2.appendChild(averageRatingBlock);
 	cell2.appendChild(numberOfRatings);
 	cell3.appendChild(rateButton);
-	
+	//document.getElementById('number-of-Ratings').appendChild(document.createTextNode(0+" ratings"));
+	//document.getElementById('average-rating-block').style.display=none;
 	return ratingTable;
 }
 
 const printRatingBlock =  (tableTag, review) => {
-	console.log(review)
+	if(review!=null){
 	let totalRating = 0;
 	for (let i = 0; i < review.length; i++) {
 			totalRating+=review[i]['rating'];
@@ -270,8 +271,28 @@ const printRatingBlock =  (tableTag, review) => {
 		cell.append(ratingTable);
 	}
 	else{
-		document.getElementById('numberOfRatings').appendChild(document.createTextNode(0+" ratings"));
-		document.getElementById('averageRatingBlock').style.display=none;
+		const ratingTable=ratingNamingBlock(0,0)
+		let row=tableTag.insertRow(2);
+		row.setAttribute('class','rating-row','rating-row')
+		
+		let cell=row.insertCell(0);
+		cell.setAttribute('colspan',2);
+		cell.setAttribute('class','rating-cells','rating-cells');
+		
+		cell.append(ratingTable);
+		
+	}
+	}else{
+		const ratingTable=ratingNamingBlock(0,0)
+		let row=tableTag.insertRow(2);
+		row.setAttribute('class','rating-row','rating-row')
+		
+		let cell=row.insertCell(0);
+		cell.setAttribute('colspan',2);
+		cell.setAttribute('class','rating-cells','rating-cells');
+		
+		cell.append(ratingTable);
+		
 	}
 
 }

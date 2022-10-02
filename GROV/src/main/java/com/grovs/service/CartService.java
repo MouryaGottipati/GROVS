@@ -82,8 +82,41 @@ public class CartService implements ICartService {
 	}
 
 	public Cart getCartProducts(HttpServletRequest request, HttpSession session) { 
-		System.out.println("getCartProduct " + session.getAttribute("cart"));
+//		System.out.println("getCartProduct " + session.getAttribute("cart"));
 		return (Cart) session.getAttribute("cart");
 	}
 
+	public  void removeProductQuantity(String cartItemId,HttpServletRequest request) {
+		HttpSession session=request.getSession(false);
+		Cart cart=(Cart) session.getAttribute("cart");
+		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
+		.forEach(p->{if(p.getQuantity()==1){cart.getCartItems().remove(p);
+		cartItemDaoObject.deleteById(p.getId());
+		}else { p.setQuantity(p.getQuantity()-1); 
+		cartItemDaoObject.save(p);
+		}});
+		session.setAttribute("cart", cart);
+	}
+
+	public void addProductQuantity(String cartItemId, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		HttpSession session=request.getSession(false);
+		Cart cart=(Cart) session.getAttribute("cart");
+		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
+		.forEach(p->{p.setQuantity(p.getQuantity()+1); 
+		cartItemDaoObject.save(p);
+		});
+		session.setAttribute("cart", cart);
+	}
+
+	public void removeProduct(String cartItemId, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		HttpSession session=request.getSession(false);
+		Cart cart=(Cart) session.getAttribute("cart");
+		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
+		.forEach(p->{cart.getCartItems().remove(p);
+		cartItemDaoObject.deleteById(p.getId());
+		});
+		session.setAttribute("cart", cart);
+	}
 }

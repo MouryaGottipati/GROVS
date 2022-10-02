@@ -38,11 +38,12 @@ public class RootCategoryService implements IRootCategoryService{
 //		System.out.println(id);
 		// TODO Auto-generated method stub
 //		List<Category> subCategoryList=iCategoryDaoObject.findAllByRootCategoryId(id);
-		
+		System.out.println("fetch"+id);
 		List<Object> l=iRootCategoryDaoObject.queryToGetRootCategoryProducts(id);
-//		System.out.println(l);
+		System.out.println(l);
 //		l.forEach(p->System.out.println(p));
-		l.size();
+//		l.size();
+		System.out.println(l.size());
 //		Set<Product> setOfAllProducts=iProductDaoObject.findByCategoryId(null);
 		return l;
 	}

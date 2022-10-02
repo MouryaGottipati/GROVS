@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/loginSignUp.css" />
+<script src="../js/loginSignUp.js"></script>
+</head>
+<body>
+	<div class="login-signup-page" id="login-signup-page">
+		<div class="loginpage-block" id="loginpage-block">
+			<button  onclick="goBack()" class="goback-button" id="goback-button" title="GoBack">x</button>
+			<div class="loginpage-title-block">
+				<span class="loginpage-title" id=loginpage-title>LoginPage</span>
+			</div>
+			<div class="login-signup-button-block" id="login-signup-button-block" >
+				<div class="login-button-block" id="login-button-block" onClick="displayLoginPage()">
+					<span class="login-button" id="login-button">Login</span>
+				</div>
+				<div class="signup-button-block" id="signup-button-block" onClick="displaySignUpPage()">
+					<span class="signup-button" id="signup-button">SignUp</span>
+				</div>
+			</div>
+			<div class="loginpage" id="loginpage">
+				<form action="login" method="post" onsubmit="loginValidate()">
+					<div class="login-email-block" id="login-email-block">
+						<span class="mail-validate-text" id="mail-validate-text"></span>
+						 <input	type="email" class="mail input" id="mail" name="mail"
+							placeholder="Enter mail"  required/>
+					</div>
+					<div class="login-password-block" id="login-password-block">
+						<span class="password-validate-text "
+							id="password-validate-text"></span> 
+							<input type="password"
+							class="password input" id="password" name="password"
+							placeholder="Enter password" required/>
+					</div>
+
+					<div class="login-submit-block" id="login-submit-block">
+						<input type="submit" value="Login" class="login-submit-button"
+							id="login-submit-button">
+					</div>
+				</form>
+			</div>
+
+			<div class="signuppage" id="signuppage">
+				<form action="signUp" method="post" onSubmit="signUpValidate()">
+				<div class="first-name-block" id="first-name-block">
+						<span class="first-name-validate-text" id="first-name-validate-text"></span> <input
+							type="text" class="first-name input" id="first-name" name="firstName"
+							placeholder="Enter first name" required/>
+					</div>
+					<div class="middle-name-block" id="middle-name-block">
+						<span class="middle-name-validate-text" id="middle-name-validate-text"></span> <input
+							type="text" class="middle-name input" id="middle-nme" name="middleName"
+							placeholder="Enter middle name" />
+					</div>
+					<div class="last-name-block" id="last-name-block">
+						<span class="last-name-validate-text" id="last-name-validate-text"></span> <input
+							type="text" class="mail input" id="last-name" name="lastName"
+							placeholder="Enter last name" required/>
+					</div>
+					<div class="email-block" id="email-block">
+						<span class="mail-validate-text" id="mail-validate-text"></span> <input
+							type="email" class="mail input" id="mail" name="mail"
+							placeholder="Enter mail" required/>
+					</div>
+					<div class="phone-block" id="phone-block">
+						<span class="phone-validate-text" id="phone-validate-text"></span> <input
+							type="tel" class="phone input" id="phone" name="phone"
+							placeholder="Enter phone no" required/>
+					</div>
+					<div class="password-block" id="password-block">
+						<span class="password-validate-text" id="password-validate-text"></span>
+						<input type="password" class="password input" id="password"
+							name="password" placeholder="Enter password" required/>
+					</div>
+					<div class="date-of-birth-block" id="date-of-birth-block">
+						<span class="date-of-birth-validate-text" id="date-of-birth-validate-text"></span>
+						<input type="Date" class="date-of-birth input" id="date-of-birth"
+							name="dateOfBirth" placeholder="Enter date-of-birth" required/>
+					</div>
+					
+					<div class="signup-submit-block" id="signup-submit-block">
+						<input type="submit" value="SignUp" class="signup-submit-button"
+							id="signup-submit-button">
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

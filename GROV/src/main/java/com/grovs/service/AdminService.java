@@ -59,6 +59,7 @@ public class AdminService implements IAdminService {
 			System.out.println(filePath);
 			System.out.println();
 			product.setImage(filePath);
+			product.setId(null);
 			productDaoObject.save(product);
 			
 		}

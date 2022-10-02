@@ -1,5 +1,11 @@
 package com.grovs.dao;
 
-public interface IUserDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.grovs.model.User;
+
+@Repository
+public interface IUserDao extends JpaRepository<User, String>{
 
 }
