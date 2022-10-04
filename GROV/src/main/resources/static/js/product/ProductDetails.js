@@ -100,7 +100,7 @@ const printProduct = (tableTag, productId, imagePath, name, basePrice, discount,
 	let add_to_cart_button = createButtonEle('button', 'add-to-cart-button', 'add-to-cart-button', 'ADD');
 
 	//Add to cart
-			add_to_cart_button.setAttribute('onClick','addToCart(+"'+productId+'")')
+			add_to_cart_button.setAttribute('onClick',"addToCart('"+productId+"')")
 
 	subtract_button.classList.add('cart-element');
 	quantity.classList.add('cart-element');

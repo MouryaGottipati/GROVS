@@ -12,8 +12,12 @@ const userCheck=async ()=>{
 		}
 	
 }
+const fetchSingleProductDetails=(productId)=>{
+		window.location.href = "http://localhost:9090/product/product_details.html?productId="+productId;
+	}
 
 $(function(){
-console.log("Cart on loading....")
  userCheck();	
+ 	
+ 
 });

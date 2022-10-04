@@ -127,9 +127,10 @@ public class UserService implements IUserService {
 					existingCart.setCartItems(existingCartItemsSet);
 
 					if (existingCart.getCartItems() != null) {
-						existingCart.getCartItems().forEach(p -> {p.setCartId(cartId);
+						existingCart.getCartItems().forEach(p -> {/* p.setCartId(cartId); */
 							cartServiceObject.addProductToCart(p.getProduct().getId(), p.getQuantity(), request,
 									response);
+							cartItemsDaoObject.deleteById(p.getId());
 						});
 					}
 

@@ -8,6 +8,9 @@
 <script async="true" src="../../js/loginSignUp/loginSignUp.js"></script>
 <script async="true" src="../../js/header/header.js"></script>
 <script src="../../js/cart/cart.js"></script>
+<script src="../../js/accountDropDown/accountDropDown.js"></script>
+<link rel="stylesheet"
+	href="../../css/accountDropDown/accountDropDown.css"></link>
 
 
 <link rel="stylesheet" href="../../css/cart/cart.css" />
@@ -32,20 +35,39 @@
 						<span class="no-items-span" id="no-items-span">No Items</span>
 					</div>
 					<ul class="cart-items" id="cart-items"></ul>
-					<button class="check-out" id="check-out">CheckOut</button>
+					<button class="check-out" id="check-out" onClick="openLoginPage()">CheckOut</button>
 				</div>
 			</div>
 
-			<div class="user" id="user">
+			<div class="user" id="user" >
+			<div class="account-dropdown-block" id="account-dropdown-block" >
 				<span class="user-name" id="user-name" onclick="openLoginPage()">Login/SignUp</span>
-				<div class="account-dropdown" id="account-dropdown">
-				<img src="../../images/Profile/Profile.png" alt="Profile"
-					class='profile-image' id='profile-image' />
-				</div>
+				
+					<img src="../../images/Profile/Profile.png" alt="Profile"
+						class='profile-image' id='profile-image' />
 
+
+					<ul class="account-dropdown" id="account-dropdown">
+						<li class="myaccount account-dropdown-listitem" id="myaccount"
+							onClick="displayMyAccount()">MyAccount</li>
+						<li class="cart-list-item account-dropdown-listitem"
+							id="cart-list-item" onClick="displayCartPage()">ViewCart</li>
+						<li class="myorders account-dropdown-listitem" id="myorders"
+							onClick="displayMyOrders()">MyOrders</li>
+						<li class="customer-service account-dropdown-listitem"
+							id="customer-service">CustomerService</li>
+						<li class="logut account-dropdown-listitem" id="logout"
+							onClick="logout()">LogOut</li>
+					</ul>
+				</div>
 			</div>
+
 		</div>
 	</div>
+
+
+
+
 	<div class="login-signup-page" id="login-signup-page">
 		<div class="loginpage-block" id="loginpage-block">
 			<button onclick="goBack()" class="goback-button" id="goback-button"
@@ -70,13 +92,13 @@
 						<span class="login-mail-validate-text error"
 							id="login-mail-validate-text"></span> <input type="text"
 							class="login-mail input" id="login-mail" name="mail"
-							placeholder="Enter mail"  />
+							placeholder="Enter mail" />
 					</div>
 					<div class="login-password-block" id="login-password-block">
 						<span class="login-password-validate-text error "
 							id="login-password-validate-text"></span> <input type="password"
 							class="login-password input" id="login-password" name="password"
-							placeholder="Enter password"  />
+							placeholder="Enter password" />
 					</div>
 
 					<div class="login-submit-block" id="login-submit-block">
@@ -88,12 +110,12 @@
 
 			<div class="signuppage" id="signuppage">
 				<form id="signUpForm" action="" method="post">
-					
+
 					<div class="first-name-block" id="first-name-block">
 						<span class="firstName-validate-text error"
 							id="firstName-validate-text"></span> <input type="text"
 							class="first-name input" id="first-name" name="firstName"
-							placeholder="Enter first name"  />
+							placeholder="Enter first name" />
 					</div>
 					<div class="middle-name-block" id="middle-name-block">
 						<span class="middleName-validate-text error"
@@ -102,30 +124,32 @@
 							placeholder="Enter middle name" />
 					</div>
 					<div class="last-name-block" id="last-name-block">
-						<span class="lastName-validate-text error" id="lastName-validate-text"></span>
-						<input type="text" class="last-name input" id="last-name"
-							name="lastName" placeholder="Enter last name"  />
+						<span class="lastName-validate-text error"
+							id="lastName-validate-text"></span> <input type="text"
+							class="last-name input" id="last-name" name="lastName"
+							placeholder="Enter last name" />
 					</div>
 					<div class="email-block" id="email-block">
-						<span class="mail-validate-text error" id="mail-validate-text"></span> <input
-							type="text" class="mail input" id="mail" name="mail"
+						<span class="mail-validate-text error" id="mail-validate-text"></span>
+						<input type="text" class="mail input" id="mail" name="mail"
 							placeholder="Enter mail" />
 					</div>
 					<div class="phone-block" id="phone-block">
 						<span class="mobile-validate-text error" id="mobile-validate-text"></span>
 						<input type="tel" class="phone input" id="phone" name="phone"
-							placeholder="Enter phone no"  />
+							placeholder="Enter phone no" />
 					</div>
 					<div class="password-block" id="password-block">
-						<span class="password-validate-text error" id="password-validate-text"></span>
-						<input type="password" class="password input" id="password"
-							name="password" placeholder="Enter password"  />
+						<span class="password-validate-text error"
+							id="password-validate-text"></span> <input type="password"
+							class="password input" id="password" name="password"
+							placeholder="Enter password" />
 					</div>
 					<div class="date-of-birth-block" id="date-of-birth-block">
 						<span class="dateOfBirth-validate-text error"
 							id="dateOfBirth-validate-text"></span> <input type="Date"
 							class="date-of-birth input" id="date-of-birth" name="dateOfBirth"
-							placeholder="Enter date-of-birth"  />
+							placeholder="Enter date-of-birth" />
 					</div>
 
 					<div class="signup-submit-block" id="signup-submit-block">

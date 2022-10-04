@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="../../js/cart/cartDisplay.js"></script>
+<link rel="stylesheet" href="../../css/cart/cartDisplay.css"></link>
+</head>
+<body>
+
+	<div id="header-file" class="header-file"></div>
+	<div class="categories-offers-block" id="categories-offers-block">
+		<div class="category-dropdown" id="category-dropdown"></div>
+		<div class="offers-button" id="offers-button"></div>
+	</div>
+	<div class="offer-deals" id="offer-deals"></div>
+
+	<div class="basket" id="basket">
+		<div class="basket-empty-block" id="basket-empty-block">
+			<div class="empty-block">
+				<span class="noitems-text" id="noitems-text">No items in Cart</span>
+			</div>
+		</div>
+
+		<div class="basket-block" id="basket-block">
+			<div class="basket-title-block" id="basket-title-block">
+
+				<span class="basket-title" id="basket-title">Your Basket</span>
+
+			</div>
+			<hr class="basket-header">
+			<div class="basket-data" id="basket-data">
+				<div class="basket-main" id="basket-main">
+					<table class="basket-table" id="basket-table">
+						<thead class="basket-thead" id="basket-thead">
+							<tr class="basket-header-row" id="basket-header-row">
+								<th class="item-details basket-head-title" id="item-details">ITEM
+									DETAILS</th>
+								<th class="unit-price basket-head-title" id="unit-price">UNIT
+									PRICE<span class="unit-price-constraint"
+									id="unit-price-constraint">(Including GST)</span>
+								</th>
+								<th class="quantity basket-head-title" id="quantity">QUANTITY</th>
+								<th class="subtotal-title basket-head-title" id="subtotal-title">SUBTOTAL</th>
+								<th class="delete-column basket-head-title" id="delete-column"></th>
+								<th class="savings-title basket-head-title" id="savings-title">SAVINGS</th>
+							</tr>
+						</thead>
+						<tbody class="basket-body" id="basket-body">
+
+						</tbody>
+					</table>
+				</div>
+				<div class="checkout-block" id="checkout-block">
+					<div class="checkout-subtotal-block block1" id="checkout-subtotal-block">
+						<span class="checkout-subtotal block1-name" id="checkout-subtotal">SubTotal:</span>
+						<span class="checkout-subtotal-value block1-value" id="checkout-subtotal-value">Rs.50</span>
+					</div>
+					<div class="checkout-deliveryFee-block block1"
+						id="checkout-deliveryFee-block">
+						<span class="checkout-deliveryFee block1-name" id="checkout-deliveryFee">Delivery
+							Charge:</span> <span class="checkout-deliveryFee-value block1-value"
+							id="checkout-deliveryFee-value">Rs.50</span>
+					</div>
+					<hr class="checkout-headerline" id="checkout-headerline">
+					<div class="total-amount-block block1"
+						id="total-amount-block">
+						<span class="total-amount block1-name" id="total-amount">Grand
+							Total:</span> <span class="total-amount-value block1-value"
+							id="total-amount-value">Rs.50</span>
+					</div>
+					<div class="checkout-button-block" id="checkout-button-block">
+						<button class="checkout-button" id="checkout-button"
+							>CheckOut</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -97,6 +97,7 @@ const createEle=(element, id, classname)=>{
 		const myJson=await status.json();
 	}
 	const addToCart=(productId)=>{
+		console.log("addToCart"+productId)
 		let quantity=document.getElementById('quantity').value;
 		let quantityNumber=getNumber(quantity);
 		if(typeof quantityNumber==='number' && quantityNumber>0){
@@ -105,5 +106,4 @@ const createEle=(element, id, classname)=>{
 			alert("Enter valid data in input");
 		}
 	}
-	
 	

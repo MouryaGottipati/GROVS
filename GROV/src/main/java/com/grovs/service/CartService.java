@@ -40,9 +40,10 @@ public class CartService implements ICartService {
 		CartItems cartItem = new CartItems();
 		cartItem.setCartId(cart.getId());
 		cartItem.setUpdateTime(LocalDateTime.now());
+		System.out.println(productId);
 		Product product = productDaoObject.findById(productId).orElse(new Product());
 		cartItem.setProduct(product);
-
+		System.out.println(product);
 		Set<CartItems> cartItemsSet = new LinkedHashSet<>();
 		if (cart.getCartItems()!=null && cart.getCartItems().size() > 0) {
 			Set<CartItems> tempCart = cart.getCartItems();

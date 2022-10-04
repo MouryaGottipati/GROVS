@@ -128,9 +128,9 @@ const getSubCategoryProducts= async (id)=>{
 		}
 	}
 	
-*/	const fetchSingleProductDetails=(productId)=>{
-		window.location.href = "http://localhost:9090/product/product_details.html?productId="+productId;
-	}
+*/	//const fetchSingleProductDetails=(productId)=>{
+		//window.location.href = "http://localhost:9090/product/product_details.html?productId="+productId;
+	//}
 
 	const createProductItem= (productId,discountInput,image,name,base_priceInput,sale_priceInput,rating)=>{
 		let li=createEle('li','product-list','product-list');

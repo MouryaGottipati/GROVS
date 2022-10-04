@@ -23,10 +23,21 @@ $(async function(){
 		let user = await myJson.json();
 		if (myJson.status == 200) {
 			console.log(user["firstName"])
-			document.getElementById("user-name").innerHTML = user["firstName"];
-			document.getElementById("user-name").setAttribute("onclick", "")
-			document.getElementById("account-dropdown").setAttribute("onmouseover", "displayDropDown()")
+			
+			
+			console.log("In here")
+			document.getElementById("profile-image").setAttribute("onMouseOver","displayAccountDropDown()");
+		document.getElementById("account-dropdown-block").setAttribute("onMouseleave","hideAccountDropDown()");
+		document.getElementById("user-name").innerHTML = user["firstName"];
+		document.getElementById("user-name").setAttribute("onclick", "")
+		document.getElementById("check-out").setAttribute("onClick","displayCartPage()")
 		}
+	}else{
+		document.getElementById("check-out").setAttribute("onClick","openLoginPage()")
+		document.getElementById("profile-image").setAttribute("onMouseOver","");
+		document.getElementById("account-dropdown-block").setAttribute("onMouseleave","");
+		document.getElementById("user-name").innerHTML = "Login/SignUp";
+		document.getElementById("user-name").setAttribute("onclick", "openLoginPage")
 	}
 })
 
@@ -197,9 +208,13 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 	console.log(user)
 	if (myJson.status == 200) {
 		console.log(user["firstName"])
+		document.getElementById("check-out").setAttribute("onClick","displayCartPage()")
 		document.getElementById("user-name").innerHTML = user["firstName"];
 		document.getElementById("user-name").setAttribute("onclick", "")
-		document.getElementById("account-dropdown").setAttribute("onmouseover", "displayDropDown()")
+		document.getElementById("numberOfItems").innerHTML = user["cartId"]["cartItems"].length + " items";
+		document.getElementById("profile-image").setAttribute("onMouseOver","displayAccountDropDown()");
+		document.getElementById("account-dropdown-block").setAttribute("onMouseleave","hideAccountDropDown()");
+		
 		goBack();
 	}
 	console.log(user)

@@ -210,3 +210,6 @@ const hideCart = () => {
 const none=()=>{
 	
 }
+const displayCartPage=()=>{
+	window.location.href="http://localhost:9090/cart/cartDisplay.html";
+}

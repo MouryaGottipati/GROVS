@@ -1,0 +1,165 @@
+body {
+	margin: 0px;
+}
+
+.categories-offers-block {
+	display: flex;
+}
+
+.basket-thead {
+	display: block;
+}
+
+.basket-body {
+	display: block;
+	overflow: auto;
+	text-align:center;
+	max-height: 500px;
+	width: 100%;
+}
+
+.basket {
+	display: block;
+	margin: 3% 3%;
+	border: 2px solid whitesmoke;
+	border-radius: 5px;
+}
+
+.basket-empty-block {
+	display:none;
+	text-align: center;
+	margin: 8px 8px;
+	background-color: #d3e6a621;
+}
+
+.empty-block {
+	padding: 40px 0px 40px 0px;
+	border: 2px solid red;
+}
+
+.basket-title-block {
+	margin: 5px 0px 10px 10px;
+	font-size: 30px;
+}
+
+.basket-title {
+	margin: 5px 0px 10px 10px;
+	font-size: 30px;
+}
+
+.basket-header {
+	margin: 0px 15px 10px 0px;
+}
+
+.unit-price-constraint {
+	font-size: 9px;
+	font-family: cursive;
+	display: block;
+}
+
+
+
+.basket-thead {
+	background-color: black;
+}
+
+.basket-head-title {
+	color: white;
+	font-family: monospace;
+}
+.item-details,.cell1{
+	width:300px;
+}
+.unit-price ,.cell2{
+	padding-top: 13.5px;
+	width:100px;
+}
+.quantity,.cell3{
+	width:100px;
+}
+.subtotal-title,.cell4{
+	width:100px;
+}
+.delete-column,.cell5{
+	width:50px;
+}
+.savings-title,.cell6{
+	width:75px;
+}
+.basket-data{
+	display:flex;
+}
+.checkout-block{
+	border:2px solid green;
+	padding:2%;
+	border-radius:10px;
+	background-color: cornsilk;
+}
+.checkout-block:hover{
+	border-radius: 5px 25px 5px;
+  background-color: #79ff91;
+}
+.block1{
+	display:inline-block;
+	padding:10px;
+}
+.block1-name{
+	font-size:20px;
+}
+.block1-value{
+	font-size:20px;
+}
+.checkout-button-block{
+	width:100%;
+}
+.checkout-button{
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    border: 0px;
+    background-color: aqua;
+    color: brown;
+    font-size: 20px;
+    font-weight: 700;
+}
+.checkout-button:hover{
+	    border: 2px solid white;
+    background-color: blancedalmond;
+    color: green;
+    box-shadow: rgb(243 243 243 / 35%) 0px 5px 15px;
+    background-color: cornsilk;
+}
+
+.basket-product-name:hover{
+	color:green;
+}
+.basket-product-final-price{
+	display:block;
+	font-size:15px;
+}
+.basket-product-base-price{
+	font-size:10px;
+}
+.basket-product-subtract-button{
+	width:20px;
+	border-radius:3px 0px 0px 3px;
+}
+.basket-product-quantity{
+	width:40px;
+	border-radius:0px;
+	
+}
+.basket-product-add-button{
+	width:20px;
+	border-radius:0px 3px 3px 0px;
+}
+
+.totalPriceOfProduct{
+	font-size:20px;
+}
+.cell6{
+	font-size:20px;
+	color:red;
+	background-color:#c1ddb5;
+}
+

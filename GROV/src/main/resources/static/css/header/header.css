@@ -38,11 +38,12 @@ body{
 .user-name{
 	font-style:oblique;
 	    margin: 12px 2px;
+	    padding-left:70px;
 }
 
 .user{
 	display:flex;
-	margin-left:240px;
+	margin-left:170px;
 }
 
 .profile-image{

@@ -1,0 +1,23 @@
+.account-dropdown-block{display: flex;}
+.account-dropdown {
+	display:none;
+	position:absolute;
+	background-color: #c0c0c0;
+	border: 1px solid white;
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.account-dropdown-listitem {
+	justify-content: center;
+	padding: 8px 53px 5px 10px;
+	border-bottom: 1px dashed black;;
+}
+
+.account-dropdown-listitem:hover {
+	border: 1px solid black;
+	background-color: white;
+	box-shadow: 1px -1px #f76363, 1px 1px #f76363, 1px 1px #f76363, -1px 1px
+		#f76363;
+}
