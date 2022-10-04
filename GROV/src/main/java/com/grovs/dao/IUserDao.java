@@ -8,4 +8,8 @@ import com.grovs.model.User;
 @Repository
 public interface IUserDao extends JpaRepository<User, String>{
 
+	User findByMail(String mail);
+
+	User findByMobile(String mobile);
+
 }

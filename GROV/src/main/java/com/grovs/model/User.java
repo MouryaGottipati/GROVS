@@ -24,44 +24,47 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.grovs.enums.UserRole;
 import com.grovs.sequenceIdGenerator.SequenceIdGenerator;
 
 @Entity
 @Table(name = "users")
+@JsonDeserialize
 public class User {
 	@Id
-	@Column(name = "id", nullable = false)
+	@Column(name = "id",nullable=false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 	@GenericGenerator(name = "user_seq", strategy = "com.grovs.sequenceIdGenerator.SequenceIdGenerator", parameters = {
 			@Parameter(name = SequenceIdGenerator.INCREMENT_PARAM, value = "2"),
 			@Parameter(name = SequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "U_"),
 			@Parameter(name = SequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d") })
 	private String id;
-	@Email
-	@NotEmpty
+	//@Email
+	//@NotEmpty
 	@Column(name = "mail", nullable = false, unique = true)
 	private String mail;
-	@NotEmpty
-	@Size(min = 10, max = 11, message = "Number of digits in phone number must be ten")
+	//@NotEmpty
+	//@Size(min = 10, max = 11, message = "Number of digits in phone number must be ten")
 	@Column(name = "phone", nullable = false, unique = true)
 	private String mobile;
-	@NotEmpty
-	@Size(min = 8, message = "Password length must be atleast 8 characters")
+	//@NotEmpty
+	//@Size(min = 8, message = "Password length must be atleast 8 characters")
 	@Column(name = "password", nullable = false)
 	private String password;
-	@NotEmpty
+	//@NotEmpty
 	@Column(name = "date_of_birth")
 	private LocalDate dateOfBirth;
 	@Column(name = "age")
 	private int age;
-	@NotEmpty
-	@Size(min = 2, message = "minimum 2 characters required")
+	//@NotEmpty
+	//@Size(min = 2, message = "minimum 2 characters required")
 	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@Column(name = "middle_name")
 	private String middleName;
-	@NotEmpty
+	//@NotEmpty
 	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	@Column(name = "creation_time", columnDefinition = "datetime default current_timestamp")
@@ -178,5 +181,16 @@ public class User {
 	}
 
 	
-
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", mail=" + mail + ", mobile=" + mobile + ", password=" + password + ", dateOfBirth="
+				+ dateOfBirth + ", age=" + age + ", firstName=" + firstName + ", middleName=" + middleName
+				+ ", lastName=" + lastName + ", creationTime=" + creationTime + ", role=" + role + ", cartId=" + cartId
+				+ ", getId()=" + getId() + ", getMail()=" + getMail() + ", getMobile()=" + getMobile()
+				+ ", getPassword()=" + getPassword() + ", getAge()=" + getAge() + ", getFirstName()=" + getFirstName()
+				+ ", getRole()=" + getRole() + ", getDateOfBirth()=" + getDateOfBirth() + ", getMiddleName()="
+				+ getMiddleName() + ", getLastName()=" + getLastName() + ", getCreationTime()=" + getCreationTime()
+				+ ", getCartId()=" + getCartId() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
 }

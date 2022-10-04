@@ -1,3 +1,4 @@
+
 $(function(){
 	$(".header-file").load("http://localhost:9090/header/header.html")
 	$(".offer-deals").load("http://localhost:9090/offersdeals/deals.html")

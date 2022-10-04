@@ -39,6 +39,7 @@ public class CartService implements ICartService {
 		if(cart!=null) {
 		CartItems cartItem = new CartItems();
 		cartItem.setCartId(cart.getId());
+		cartItem.setUpdateTime(LocalDateTime.now());
 		Product product = productDaoObject.findById(productId).orElse(new Product());
 		cartItem.setProduct(product);
 
@@ -93,6 +94,7 @@ public class CartService implements ICartService {
 		.forEach(p->{if(p.getQuantity()==1){cart.getCartItems().remove(p);
 		cartItemDaoObject.deleteById(p.getId());
 		}else { p.setQuantity(p.getQuantity()-1); 
+		p.setUpdateTime(LocalDateTime.now());
 		cartItemDaoObject.save(p);
 		}});
 		session.setAttribute("cart", cart);
@@ -104,6 +106,7 @@ public class CartService implements ICartService {
 		Cart cart=(Cart) session.getAttribute("cart");
 		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
 		.forEach(p->{p.setQuantity(p.getQuantity()+1); 
+		p.setUpdateTime(LocalDateTime.now());
 		cartItemDaoObject.save(p);
 		});
 		session.setAttribute("cart", cart);

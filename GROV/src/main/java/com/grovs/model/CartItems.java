@@ -1,5 +1,6 @@
 package com.grovs.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -49,6 +50,9 @@ public class CartItems {
 	
 	@Column(name="quantity")
 	private int quantity;
+	
+	@Column(name="updated_time",columnDefinition ="datetime default current_timestamp on update current_timestamp")
+	private LocalDateTime updateTime;
 
 	public String getId() {
 		return id;
@@ -60,6 +64,14 @@ public class CartItems {
 
 	public String getCartId() {
 		return cartId;
+	}
+
+	public LocalDateTime getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(LocalDateTime updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public void setCartId(String cartId) {
