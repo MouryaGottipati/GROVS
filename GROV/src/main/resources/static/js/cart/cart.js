@@ -120,6 +120,9 @@ const displayCart = async () => {
 	const responseEntity = await fetch("http://localhost:9090/getCartProducts");
 	const cartJson = await responseEntity.json();
 	//console.log("cartJson"+cartJson)
+	if(window.location.href.includes("cartDisplay")){
+		cartDisplay();
+	}
 	printCart(cartJson);
 }
 const removeProductQuantity=async (cartItemId)=>{

@@ -1,8 +1,8 @@
 
 package com.grovs.service;
 
-import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -35,6 +35,10 @@ public class CartService implements ICartService {
 	public Cart addProductToCart(String productId, int quantity, HttpServletRequest request,HttpServletResponse response) { // TODO Auto-generated
 		HttpSession session=request.getSession(false);																	// HttpSession
 		session = request.getSession();
+		
+		  if(session==null) { new SessionService().cartCookie(request,response);
+		  }
+		 
 		Cart cart = (Cart) session.getAttribute("cart");
 		if(cart!=null) {
 		CartItems cartItem = new CartItems();
@@ -84,21 +88,25 @@ public class CartService implements ICartService {
 	}
 
 	public Cart getCartProducts(HttpServletRequest request, HttpSession session) { 
-//		System.out.println("getCartProduct " + session.getAttribute("cart"));
+	System.out.println("getCartProduct " + session.getAttribute("cart"));
 		return (Cart) session.getAttribute("cart");
 	}
 
 	public  void removeProductQuantity(String cartItemId,HttpServletRequest request) {
-		HttpSession session=request.getSession(false);
+		HttpSession session=request.getSession();
 		Cart cart=(Cart) session.getAttribute("cart");
-		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
-		.forEach(p->{if(p.getQuantity()==1){cart.getCartItems().remove(p);
+		cart.getCartItems().stream().filter(p->p.getId().equals(cartItemId))
+		.forEach(p->{if(p.getQuantity()==1){
 		cartItemDaoObject.deleteById(p.getId());
+		cart.getCartItems().remove(p);
 		}else { p.setQuantity(p.getQuantity()-1); 
 		p.setUpdateTime(LocalDateTime.now());
 		cartItemDaoObject.save(p);
 		}});
-		session.setAttribute("cart", cart);
+	
+		Cart sessionCart=cartDaoObject.findById(cart.getId()).orElse(new Cart());
+		System.out.println(sessionCart);
+		session.setAttribute("cart", sessionCart);
 	}
 
 	public void addProductQuantity(String cartItemId, HttpServletRequest request) {
@@ -117,10 +125,15 @@ public class CartService implements ICartService {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession(false);
 		Cart cart=(Cart) session.getAttribute("cart");
+		
+			
 		cart.getCartItems().parallelStream().filter(p->p.getId().equals(cartItemId))
 		.forEach(p->{cart.getCartItems().remove(p);
 		cartItemDaoObject.deleteById(p.getId());
 		});
-		session.setAttribute("cart", cart);
+		
+		Cart sessionCart=cartDaoObject.findById(cart.getId()).orElse(new Cart());
+		System.out.println(sessionCart);
+		session.setAttribute("cart", sessionCart);
 	}
 }

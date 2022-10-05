@@ -1,28 +1,37 @@
 
-$(function(){
+$(async function(){
 	$(".header-file").load("http://localhost:9090/header/header.html")
 	$(".offer-deals").load("http://localhost:9090/offersdeals/deals.html")
 	$(".category-dropdown").load("http://localhost:9090/category/category_dropdown.html")
 	$(".offers-button").load("http://localhost:9090/offersdeals/offer_button.html")
-	 cartDisplay();
+	await cartDisplay();
 })
 
 const cartDisplay=async ()=>{
+	let cartJson ;
+	try{
 	const responseEntity = await fetch("http://localhost:9090/getCartProducts");
-	const cartJson = await responseEntity.json();
-	 printBasket(cartJson);
+	
+	cartJson= await responseEntity.json();
+	}catch{
+		console.log(Error)
+		console.log(cartJson)
+	}
+		document.getElementById("numberOfItems").innerHTML = cartJson["cartItems"].length + " items";
+	 await printBasket(cartJson);
 }
 
 const printBasket=async (cartJson)=>{
 	
-	document.getElementById("numberOfItems").innerHTML = cartJson["cartItems"].length + " items";
-	
+
+	console.log(cartJson)
 	if (cartJson == null|| cartJson["cartItems"]==null || cartJson["cartItems"].length == 0) {
 		document.getElementById("basket-empty-block").style.display="block"
 		document.getElementById("basket-block").style.display="none";
 		document.getElementById("checkout-block").style.display = "none";
 	} else {
 		// removeExisting();
+		
 		const tBodyTag=document.getElementById("basket-body");
 	document.getElementById("basket-title").innerHTML = "Your Basket ( "+cartJson["cartItems"].length+ " items )";
 	while((tBodyTag!=undefined || tBodyTag!=null)&& tBodyTag.hasChildNodes()){
@@ -110,6 +119,7 @@ const printBasket=async (cartJson)=>{
 }
 
 const removeExisting=async ()=>{
+	
 	const tbody=document.getElementById("basket-body");
 	document.getElementById("numberOfItems").innerHTML = 0 + " items";
 	while((tbody!=undefined || tbody!=null)&& tbody.hasChildNodes()){
@@ -118,15 +128,17 @@ const removeExisting=async ()=>{
 }
 
 const subtractQuantityByOne=async (cartItemId)=>{
+	console.log("In subtract")
 	await fetch("http://localhost:9090/removeProductQuantity/"+cartItemId,{method:"POST"});
-	 cartDisplay();
+	await cartDisplay();
 }
 
 const addQuantityByOne=async (cartItemId)=>{
 	await fetch("http://localhost:9090/addProductQuantity/"+cartItemId,{method:"POST"});
-	 cartDisplay();
+	 await cartDisplay();
 }
 const removeProductFromBasket =async (cartItemId)=>{
+	console.log("In remove")
 	await fetch("http://localhost:9090/removeProduct/"+cartItemId,{method:"POST"});
-	 cartDisplay();
+	await  cartDisplay();
 }

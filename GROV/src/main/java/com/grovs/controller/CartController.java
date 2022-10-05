@@ -36,12 +36,15 @@ public class CartController {
 
 	@GetMapping("getCartProducts")
 	public ResponseEntity<Cart> getCartProducts(HttpServletRequest request, HttpSession session) {
+		System.out.println("In getCart Products");
 		return ResponseEntity.status(HttpStatus.OK).body(cartServiceObject.getCartProducts(request, session));
 	}
 	
 	@PostMapping("removeProductQuantity/{cartItemId}")
 	public ResponseEntity<String> removeProductQuantity(@PathVariable("cartItemId") String cartItemId,HttpServletRequest request) {
+		System.out.println(("In remove controller"+System.nanoTime()));
 		cartServiceObject.removeProductQuantity(cartItemId,request);
+		
 		return   ResponseEntity.ok("SuccessFull");
 	}
 	
