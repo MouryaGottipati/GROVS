@@ -81,6 +81,7 @@ const printBasket=async (cartJson)=>{
 			quantity.setAttribute("value",cartJson["cartItems"][i]["quantity"]);
 			quantity.setAttribute("type","text")
 			quantity.setAttribute("inputMode","numeric");
+			quantity.disabled=true;
 			
 			let addButton=createNameEle("button","basket-product-add-button","basket-product-add-button","+")
 			addButton.setAttribute("onClick","addQuantityByOne('"+cartJson["cartItems"][i]["id"]+"')");
@@ -98,7 +99,6 @@ const printBasket=async (cartJson)=>{
 			let cell4=row.insertCell(3);
 			cell4.appendChild(totalPriceOfProduct)
 			cell4.setAttribute("class","cell4")
-			cell4.setAttribute("disabled","true")
 			
 			let removeProduct=createNameEle("button","basket-product-remove-button","basket-product-remove-button","X")
 			removeProduct.setAttribute("onClick","removeProductFromBasket('"+cartJson["cartItems"][i]["id"]+"')");
@@ -141,4 +141,7 @@ const removeProductFromBasket =async (cartItemId)=>{
 	console.log("In remove")
 	await fetch("http://localhost:9090/removeProduct/"+cartItemId,{method:"POST"});
 	await  cartDisplay();
+}
+const goToCheckOutPage=()=>{
+	window.location.href="http://localhost:9090/checkout/checkout.html"
 }

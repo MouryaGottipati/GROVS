@@ -114,6 +114,9 @@ const addProductToCart = async (productId, quantity) => {
 	const cartJson = await responseEntity.json();
 
 	document.getElementById("numberOfItems").innerHTML = cartJson["cartItems"].length + " items";
+	//setTimeout(function(){alert("Added Successfully")},200)
+	//window.alert=function(){}
+	//setTimeout(function(){window.alert},1000)
 }
 const displayCart = async () => {
 	document.getElementById("cart-display").style.display = "block";

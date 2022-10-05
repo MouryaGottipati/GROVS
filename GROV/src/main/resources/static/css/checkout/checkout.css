@@ -1,0 +1,9 @@
+body{
+	margin:0px;
+}
+.categories-offers-block{
+	display:flex;
+}
+/* .header-block{
+	position:sticky;
+} */
