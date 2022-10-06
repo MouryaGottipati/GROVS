@@ -72,6 +72,29 @@ public class User {
 	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
+	
+	/*
+	 * @OneToMany(mappedBy="userId") private Set<Order> orders;
+	 * 
+	 * @OneToMany(mappedBy="userId") private Set<Address> addresses;
+	 */
+//	public Set<Order> getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(Set<Order> orders) {
+//		this.orders = orders;
+//	}
+//
+//	public Set<Address> getAddresse() {
+//		return addresses;
+//	}
+
+//	public void setAddresse(Set<Address> addresses) {
+//		this.addresses= addresses;
+//	}
+
+
 	/*
 	 * @OneToMany(targetEntity = Cart.class,fetch=FetchType.EAGER)
 	 * 

@@ -1,8 +1,11 @@
 package com.grovs.service;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,6 +19,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grovs.dao.IAddressDao;
 import com.grovs.dao.ICartDao;
 import com.grovs.dao.ICartItemsDao;
 import com.grovs.dao.IUserDao;
@@ -25,6 +29,7 @@ import com.grovs.exception.AgeInsufficientException;
 import com.grovs.exception.DataAlreadyExists;
 import com.grovs.exception.DataMisMatchException;
 import com.grovs.exception.GlobalExceptionHandler;
+import com.grovs.model.Address;
 import com.grovs.model.Cart;
 import com.grovs.model.CartItems;
 import com.grovs.model.LoginUserModel;
@@ -44,6 +49,8 @@ public class UserService implements IUserService {
 	private ICartItemsDao cartItemsDaoObject;
 	@Autowired
 	private CartService cartServiceObject;
+	@Autowired
+	private IAddressDao addressDaoObject;
 
 	@Override
 	public User insertNewUser(RequestUserModel requestUser) {
@@ -150,7 +157,7 @@ public class UserService implements IUserService {
 
 	}
 
-	public boolean existingUserCheck(HttpServletRequest request) {
+	public boolean existingUserCheck(HttpServletRequest request,HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		Cookie[] cookies=request.getCookies();
 		for(Cookie cookie:cookies) {
@@ -158,18 +165,55 @@ public class UserService implements IUserService {
 				return userDaoObject.findById(cookie.getValue()).isPresent();
 			}
 		}
+		HttpSession  session=request.getSession();
+		if(session!=null && session.getAttribute("userId")!=null) {
+			String userId=(String) session.getAttribute("userId");
+			Cookie cookie=new Cookie("userId",userId);
+			response.addCookie(cookie);
+			return true;
+		}
 		return false;
 	}
 
-	public User getUserDetails(HttpServletRequest request) {
+	public User getUserDetails(HttpServletRequest request,HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		Cookie[] cookies=request.getCookies();
 		for(Cookie cookie:cookies) {
+			
 			if(cookie.getName().equals("userId") && cookie.getValue()!=null) {
+				System.out.println(cookie.getValue());
+				System.out.println(userDaoObject.findById(cookie.getValue()).orElse(new User()));
 				return userDaoObject.findById(cookie.getValue()).orElse(new User());
 			}
 		}
+		HttpSession  session=request.getSession();
+		if(session!=null && session.getAttribute("userId")!=null) {
+			String userId=(String) session.getAttribute("userId");
+			Cookie cookie=new Cookie("userId",userId);
+			response.addCookie(cookie);
+			return userDaoObject.findById(userId).orElse(new User());
+		}
 		return null;
+	}
+
+	public Address addNewAddress(Address address,HttpServletRequest request,HttpServletResponse  response) {
+		// TODO Auto-generated method stub
+		address.setUpdatedTime(LocalDateTime.now());
+		String userId = null;
+		Cookie[] cookies=request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("userId") && cookie.getValue()!=null) {
+				userId=cookie.getValue();
+			}
+		}
+		HttpSession  session=request.getSession();
+		if(session!=null && session.getAttribute("userId")!=null) {
+			userId=(String) session.getAttribute("userId");
+			Cookie cookie=new Cookie("userId",userId);
+			response.addCookie(cookie);
+		}
+		address.setUserId(userId);
+		return addressDaoObject.save(address);
 	}
 
 }

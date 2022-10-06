@@ -2,6 +2,7 @@ package com.grovs.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -31,7 +34,7 @@ public class Address {
 			@Parameter(name = SequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%01d") })
 	private String id;
 	
-	@ManyToOne(targetEntity=User.class)
+	@ManyToOne(targetEntity=User.class,cascade=CascadeType.ALL)
 	@JoinColumn(name="users_id",referencedColumnName="id",nullable=false)
 	private String userId;
 	
@@ -39,9 +42,11 @@ public class Address {
 	@Size(min=2,message="Minimum length of first name must be 2")
 	@Column(name="first_name",nullable=false)	
 	private String firstName;
-	@NotEmpty(message="last name can't be empty")
-	@Column(name="last_name",nullable=false)
-	private String lastName;
+	/*
+	 * @NotEmpty(message="last name can't be empty")
+	 * 
+	 * @Column(name="last_name",nullable=false) private String lastName;
+	 */
 	@NotEmpty(message="phone number can't be empty")
 	@Size(min=10,max=10,message="Phone number length must be 10")
 	@Column(name="phone",nullable=false)
@@ -57,8 +62,9 @@ public class Address {
 	@Size(min=2,message="Minimum length of city name must be 2")
 	@Column(name="city",nullable=false)
 	private String city;
-	@NotEmpty(message="Pincode can't be empty")
-	@Size(min=6,max=6,message="Pincode length  must be 6 digits")
+	/* @NotEmpty(message="Pincode can't be empty") */
+	@Min(message="Pincode length  must be 6 digits", value = 100000)
+	@Max(message="Pincode length  must be 6 digits", value = 999999)
 	@Column(name="pincode",nullable=false)
 	private int pincode;
 	
@@ -92,13 +98,11 @@ public class Address {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	/*
+	 * public String getLastName() { return lastName; }
+	 * 
+	 * public void setLastName(String lastName) { this.lastName = lastName; }
+	 */
 
 	public String getPhone() {
 		return phone;

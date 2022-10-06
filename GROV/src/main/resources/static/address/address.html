@@ -1,10 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../../css/address/address.css">
+
 </head>
 <body>
+	<div class="address-page-block" id="address-page-block">
+		<div class="address-page" id="address-page">
+			<button onclick="goBack()" class="goback-button" id="goback-button"
+				title="GoBack">x</button>
+			<!-- <span class="address-status" id="address-status"></span> -->
+			<div class="address-title-block">
+				<span class="address-title" id=address-title>AddAddress</span>
+			</div>
 
+
+			<div class="address" id="address">
+				<form id="address-form" action="" method="post">
+
+					<div class="first-name-block" id="first-name-block">
+						<span class="firstName-validate-text error"
+							id="firstName-validate-text"></span> <input type="text"
+							class="first-name input" id="first-name" name="firstName"
+							placeholder="Enter first name" />
+					</div>
+
+					<!-- <div class="email-block" id="email-block">
+						<span class="mail-validate-text error" id="mail-validate-text"></span>
+						<input type="text" class="mail input" id="mail" name="mail"
+							placeholder="Enter mail" />
+					</div> -->
+					<div class="phone-block" id="phone-block">
+						<span class="phone-validate-text error" id="phone-validate-text"></span>
+						<input type="tel" class="phone input" id="phone" name="phone"
+							placeholder="Enter phone no" />
+					</div>
+
+					<div class="house-no-block" id="house-no-block">
+						<span class="houseNo-validate-text error"
+							id="houseNo-validate-text"></span> <input type="text"
+							class="house-no input" id="house-no" name="houseNo"
+							placeholder="Enter house no" />
+					</div>
+
+					<div class="street-block" id="street-block">
+						<span class="street-validate-text error" id="street-validate-text"></span>
+						<input type="text" class="street input" id="street" name="street"
+							placeholder="Enter street" />
+					</div>
+
+
+
+					<div class="city-block" id="city-block">
+						<span class="city-validate-text error" id="city-validate-text"></span>
+						<input type="text" class="city input" id="city" name="city"
+							placeholder="Enter city" />
+					</div>
+
+					<div class="pincode-block" id="pincode-block">
+						<span class="pincode-validate-text error"
+							id="pincode-validate-text"></span> <input type="text"
+							inputmode="numeric" class="pincode input" id="pincode"
+							name="pincode" placeholder="Enter pincode" />
+					</div>
+					<div class="state-block" id="state-block">
+						<span class="state-validate-text error" id="state-validate-text"></span>
+						<select class="state" id="state" name="state">
+							<option value="none" selected disabled hidden="true">Choose
+								State</option>
+							<option value="Hyderabad">Hyderabad</option>
+							<option value="Banglore">Bangalore</option>
+							<option value="Chennai">Chennai</option>
+						</select>
+					</div>
+
+					<div class="type-block" id="type-block">
+						<span class="type-validate-text error" id="type-validate-text"></span>
+						<select class="type" id="type" name="type">
+							<option value="none" selected disabled hidden="true">Choose
+								type</option>
+							<option value="Home">Home</option>
+							<option value="Work">Work</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+
+					<div class="add-address-submit-block" id="add-address-submit-block">
+						<input type="submit" value="Add" class="add-address-submit-button"
+							id="add-address-submit-button" >
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
 </body>
+<script async=true src="../../js/address/address.js"></script>
 </html>
